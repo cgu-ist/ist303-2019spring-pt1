@@ -1,4 +1,10 @@
-## miYe - Massage Reservation System
+## MiYE - Massage Reservation System
+
+> " Mud in Your Eye” (MiYE) - a new, small hot spring health spa, located in a remote, scenic part of the US. The software must support the spa’s front desk clerks in managing service reservations and statements of service usage for customers.
+
+MiYE is a full-time resort spa facility, provides front desk clerk the ability to manage service, customers also make reservation in the system.
+By default, MiYE provides services as follows.
+
 
 ## Application Preparation
 
