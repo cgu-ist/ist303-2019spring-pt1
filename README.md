@@ -80,6 +80,8 @@ $ python manage.py createsuperuser
 $ python manage.py runserver
 ```
 
+Go to [http://localhost:8000](http://localhost:8000)
+
 ## Page Overview
 
 * [X] Login/Logout
