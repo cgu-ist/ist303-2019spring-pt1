@@ -71,13 +71,13 @@ $ python manage.py shell_plus --notebook
 
 ### Create a super user for your application
 ```shell
-$ python manage.py  createsuperuser
+$ python manage.py createsuperuser
 ```
 
 ### Run dev server
 
 ```shell
-./manage.py runserver
+$ python manage.py runserver
 ```
 
 ## Page Overview
