@@ -37,12 +37,23 @@ MiYE is using both Django rest API to manipulate data, data will be transfer bet
 
 ### Start you local environment
 
-```shell
-# Create a virtual environment and activate it
-$ python3 -m venv ./venv
-$ source venv/bin/activate
-$ pip install -r requirements.txt
-```
+* MacOSX/Linux
+
+  ```shell
+  # Create a virtual environment and activate it
+  $ python3 -m venv venv
+  $ source venv/bin/activate
+  $ pip install -r requirements.txt
+  ```
+
+* Windows
+
+  ```shell
+  # Create a virtual environment and activate it
+  python -m venv venv
+  venv\Scripts\activate
+  (venv) pip install -r requirements.txt
+  ```
 
 ### Prepare your schema and play with it
 
