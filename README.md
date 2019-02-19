@@ -7,7 +7,7 @@ By default, MiYE provides services as follows.
 
 ## Team Member/Role
 
-* [Karen Snow](https://github.com/okechukwuugwuanyikarensnow2019) - Business Design, Programmer
+* [Karen Snow](https://github.com/karensnow2019) - Business Design, Programmer
 * [Okechukwu Ugwuanyi](https://github.com/okechukwuugwuanyi) - UI Desiner, Programmer
 * [Haibo Yan](https://github.com/billyean) - System Design, Programmer
 
