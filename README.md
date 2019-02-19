@@ -27,7 +27,7 @@ $ python manage.py shell_plus --notebook
 
 ### Create a super user for your application
 ```shell
-$ python manage.py 
+$ python manage.py
 
 ```
 
@@ -39,10 +39,7 @@ $ python manage.py
 
 ## Page Overview
 
-### Login/Logout
-
-### Service administration
-
-### Customer administration
-
-### Reservation
+* [X] Login/Logout
+* [X] Service administration
+* [X] Customer administration
+* [ ] Reservation
