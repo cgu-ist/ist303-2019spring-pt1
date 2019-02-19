@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+<table  class="table table-striped table-bordered"  id="myTable">
+<thead class="thead-light">
+    <th class="col-1 text-center">Full Name</th>
+    <th class="col-3 text-center">Gender</th>
+    <th class="col-1 text-center">Email</th>
+    <th class="col-3 text-center">Tel</th>
+    <th class="col-3 text-center">Action</th>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<div id="btndiv">
+    <button id="createCustomer" class="btn btn-primary" onclick="newCustomer()"> Create Customer</button>
+</div>
+
+<div id="customerform">
+</div>
+
+{% endblock %}
+
+{% block extrajs %}
+<script  src="{% static 'js/customer-app.js' %}"></script>
+{% endblock %}
