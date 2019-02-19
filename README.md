@@ -28,7 +28,9 @@ MiYE provides a reservation page that clerk can manage customer's reservation al
 ### Architecture
 
 MiYE is a pure Django application that can be run in Linux/MacOSX/Window.MiYE is using JQuery to provide AJAX support for implementation of so-called one page application. MiYE is using sqllite3 as local storage, which means MiYE doesn't support multiple user scenarios.
+
 MiYE is a secure application that only authorized clerk can manage the system. MiYE provides initial user creation mechanism that customer makes sure they can their system safe.
+
 MiYE is using both Django rest API to manipulate data, data will be transfer between customer's browser and MiYE asynchronously.
 
 ## Application Preparation
