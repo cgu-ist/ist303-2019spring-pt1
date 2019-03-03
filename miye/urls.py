@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from administration import views as administration_views
+from reservation import views as reservation_views
 from accounts import views as accounts_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
@@ -31,6 +32,18 @@ urlpatterns = [
     path('customer', administration_views.customer_base, name='customer_main'),
     path('customer/list', administration_views.customer_list, name="customer_list"),
     path('customer/<int:customer_id>', administration_views.customer_detail, name="customer_detail"),
+    path('reservations', reservation_views.reservations, name='reservations_main'),
+    path('reservation/new', reservation_views.new_reservation, name='new_reservation'),
+    path('reservation', reservation_views.reservation, name='reservation_main'),
+    path('reservation/calendar/day.html', reservation_views.DayHtml.as_view()),
+    path('reservation/calendar/events-list.html', reservation_views.EventsListHtml.as_view()),
+    path('reservation/calendar/modal.html', reservation_views.ModalHtml.as_view()),
+    path('reservation/calendar/month.html', reservation_views.MonthHtml.as_view()),
+    path('reservation/calendar/month-day.html', reservation_views.MonthDayHtml.as_view()),
+    path('reservation/calendar/week.html', reservation_views.WeekHtml.as_view()),
+    path('reservation/calendar/week-days.html', reservation_views.WeekDaysHtml.as_view()),
+    path('reservation/calendar/year.html', reservation_views.YearHtml.as_view()),
+    path('reservation/calendar/year-month.html', reservation_views.YearMonthHtml.as_view())
 ]
 
 

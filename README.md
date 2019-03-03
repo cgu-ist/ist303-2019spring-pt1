@@ -82,6 +82,25 @@ $ python manage.py runserver
 
 Go to [http://localhost:8000](http://localhost:8000)
 
+### Run production server
+
+> Note: [Gunicorn](https://gunicorn.org) is a Python WSGI HTTP Server, it works as a HTTP gateway for DJango application.
+
+```shell
+gunicorn miye.wsgi:application --bind 0.0.0.0:8000 --workers 3
+```
+
+### Docker
+
+Miye can be run as a docker image, which makes the depolyment process extremely easy.
+
+Build miye docker image and run it
+ 
+```shell
+$ docker build -t miye_image .
+$ docker run -p 8000:8000 -i -t miye_image
+```
+
 ## Page Overview
 
 * [X] Login/Logout
