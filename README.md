@@ -5,6 +5,14 @@
 MiYE is a an application that work for full-time resort spa facility, provides front desk clerk the ability to manage service, customers also make reservation in the system.
 By default, MiYE provides services as follows.
 
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='./Walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
 ## Team Member/Role
 
 * [Karen Snow](https://github.com/karensnow2019) - Business Design, Programmer
