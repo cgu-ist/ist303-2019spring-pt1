@@ -56,20 +56,20 @@ function newCustomer(){
            <div>
                 <div id="errorDiv" class="alert alert-danger hidden"></div>
                 <label for="first_name">First Name: </label>
-                <input id="form_first_name" type="text" class="form-control" name="first_name"><br>
+                <input id="form_first_name" type="text" class="form-control required" name="first_name" required="true"><br>
                 <label for="last_name">Last Name: </label>
-                <input id="form_last_name" type="text" class="form-control" name="last_name"><br>
+                <input id="form_last_name" type="text" class="form-control required" name="last_name" required="true"><br>
                 <label for="gender">Gender: </label>
-                <select id="form_gender"  class="form-control" name="gender">
+                <select id="form_gender" class="form-control" name="gender">
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
                     <option value="Unknown">Unknown</option>
                 </select><br>
                 <!--<input id="form_gender" type="text" class="form-control" name="gender">-->
                 <label for="email">EMail:</label>
-                <input id="form_email" type="text" class="form-control" name="email"><br>
+                <input id="form_email" type="email" class="form-control required" name="email" required="true"><br>
                 <label for="tel">Tel:</label>
-                <input id="form_tel" type="text" class="form-control" name="tel"><br>
+                <input id="form_tel" type="text" class="form-control required" name="tel" required="true"><br>
                 <button class="btn submitBtn btn-primary">New</button>&nbsp;<button type="reset" class="btn btn-primary">Clear</button>&nbsp;<button type="reset" class="btn btn-primary" onclick="cancelForm()">Cancel</button>
             </div>`;
     $('#customerform').empty();
@@ -135,9 +135,9 @@ function updateCustomer(el){
                             <div id="errorDiv" class="alert alert-danger hidden"></div>
                             <input id="form_id" type="hidden" value="${customer.id}">
                             <label for="first_name">First Name: </label>
-                            <input id="form_first_name" type="text" class="form-control" name="first_name" value="${customer.first_name}"><br>
+                            <input id="form_first_name" type="text" class="form-control" name="first_name" value="${customer.first_name}" required="true"><br>
                             <label for="last_name">Last Name: </label>
-                            <input id="form_last_name" type="text" class="form-control" name="last_name" value="${customer.last_name}"><br>
+                            <input id="form_last_name" type="text" class="form-control" name="last_name" value="${customer.last_name}" required="true"><br>
                             <label for="gender">Gender: </label>
                             <select id="form_gender"  class="form-control" name="gender">
                                 <option value="Female">Female</option>
@@ -145,9 +145,9 @@ function updateCustomer(el){
                                 <option value="Unknown">Unknown</option>
                             </select><br>
                             <label for="email">Email:</label>
-                            <input id="form_email" type="text" class="form-control" name="email" value="${customer.email}"><br>
+                            <input id="form_email" type="text" class="form-control" name="email" value="${customer.email}" required="true"><br>
                             <label for="tel">Tel:</label>
-                            <input id="form_tel" type="text" class="form-control" name="tel" value="${customer.tel}"><br>
+                            <input id="form_tel" type="text" class="form-control" name="tel" value="${customer.tel}" required="true"><br>
                             <button class="btn submitBtn btn-primary">Update</button>&nbsp;<button type="reset" class="btn btn-primary">Clear</button>&nbsp;<button type="reset" class="btn btn-primary" onclick="cancelForm()">Cancel</button>
                         </div>`;
                 $('#customerform').empty()
