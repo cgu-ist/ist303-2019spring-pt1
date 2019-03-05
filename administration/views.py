@@ -119,15 +119,15 @@ def customer_detail(request, customer_id):
 
         if request.method == 'POST':
             if request.POST['first_name'] is not None:
-                customer.name = request.POST['first_name']
+                customer.first_name = request.POST['first_name']
             if request.POST['last_name'] is not None:
-                customer.description = request.POST['last_name']
+                customer.last_name = request.POST['last_name']
             if request.POST['gender'] is not None:
-                customer.time_type = request.POST['gender']
+                customer.gender = request.POST['gender']
             if request.POST['email'] is not None:
-                customer.rate = request.POST['email']
+                customer.email = request.POST['email']
             if request.POST['tel'] is not None:
-                customer.rate = request.POST['tel']
+                customer.tel = request.POST['tel']
             customer.full_clean()
             customer.save()
         elif request.method == 'DELETE':
