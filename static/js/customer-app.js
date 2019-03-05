@@ -150,9 +150,9 @@ function updateCustomer(el){
                             <input id="form_tel" type="text" class="form-control" name="tel" value="${customer.tel}" required="true"><br>
                             <button class="btn submitBtn btn-primary">Update</button>&nbsp;<button type="reset" class="btn btn-primary">Clear</button>&nbsp;<button type="reset" class="btn btn-primary" onclick="cancelForm()">Cancel</button>
                         </div>`;
-                $('#customerform').empty()
-                $('#customerform').append(form)
-                $('#form_gender select').val('${customer.gender}')
+                $('#customerform').empty();
+                $('#customerform').append(form);
+                $('#form_gender').val(`${customer.gender}`);
                 $('.submitBtn').bind("click", () => {
                     let id = $('#form_id').val();
                     let first_name = $('#form_first_name').val();
