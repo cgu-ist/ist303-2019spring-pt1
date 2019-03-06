@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Please login here</title>
+</head>
+<link  rel="stylesheet"  href="{% static 'css/bootstrap.min.css' %}"  crossorigin="anonymous">
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<body>
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h1  class="modal-title" id="loginLabel">Please login</h1>
+                </div>
+                {% if errMsg != "" %}
+                    <div id="errorDiv" class="modal-body alert alert-danger">{{ errMsg }}</div>
+                {% endif %}
+                <form action="/login" method="post">
+                    <div class="modal-body bg-primary text-white">{{ form.as_p }}</div>
+                    {% csrf_token %}
+                    <div class="modal-footer bg-primary text-white">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="reset" class="btn btn-primary" data-dismiss="modal">Clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+</body>
+</html>
