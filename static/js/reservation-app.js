@@ -1,36 +1,22 @@
-$.ajax({
-    url:  '/reservations',
-    type:  'get',
-    dataType:  'json',
-    success: function  (data) {
-        if (data.ret == 0) {
-                console.log(data.reservations);
-            // let rows =  '';
-            // data.customers.forEach(customer => {
-            //     rows += `<tr id="tr_${customer.id}">
-            //             <td class="col-1">${customer.first_name} ${customer.last_name}</td>
-            //             <td class="col-3">${customer.gender}</td>
-            //             <td class="col-1">${customer.email}</td>
-            //             <td class="col-1">${customer.tel}</td>
-            //             <td class="col-3">
-            //                 <button class="btn deleteBtn btn-primary" data-id="${customer.id}"">Delete</button>
-            //                 <button class="btn updateBtn btn-primary" data-id="${customer.id}"">Update</button>
-            //             </td>
-            //         </tr>`;
-            // });
-            //
-            // $('#myTable tbody').append(rows);
-            // bindBtn();
-        } else {
-            // do something
-        }
-    }
-});
-
-var calendar = $("#calendar").calendar({
+var options = {
     tmpl_path: "/reservation/calendar/",
+    // tmpl_cache: false,
     view: 'month',
-    events_source: function () { return []; },
+    events_source: () => [],
+    onAfterEventsLoad: function(events) {
+        if(!events) {
+            return;
+        }
+        // let list = $('#eventlist');
+        // list.html('');
+        //
+        // $.each(events, function(key, val) {
+        //     $(document.createElement('li'))
+        //         // .html('<a href="' + val.url + '">' + val.title + '</a>')
+        //         .html('<span>' + val.title + '</span><button class="btn deleteBtn btn-primary" data-id="' + val.id + '">Delete</button>')
+        //         .appendTo(list);
+        // });
+    },
     onAfterViewLoad: function(view) {
         $('.page-header h3').text(this.getTitle());
         $('.btn-group button').removeClass('active');
@@ -41,9 +27,40 @@ var calendar = $("#calendar").calendar({
             general: 'label'
         }
     },
+    show_events_which_fits_time: true,
     time_start: '08:00',
     time_end: '20:00',
     events_url: '/reservation/new'
+};
+
+var calendar = $("#calendar").calendar(options);
+
+$.ajax({
+    url:  '/reservations',
+    type:  'get',
+    dataType:  'json',
+    success: function  (data) {
+        if (data.ret == 0) {
+            var event_sources = []
+            data.reservations.forEach(reservation => {
+                event_sources.push({
+                    "id": reservation.id,
+                    "person": reservation.customer.first_name + ' ' + reservation.customer.last_name,
+                    "title": reservation.reservation_service.name,
+                    "description": reservation.reservation_service.description,
+                    "url": '/reservation/' + reservation.id,
+                    "start": reservation.reservation_date_time_ms_b,
+                    "end": reservation.reservation_date_time_ms_e
+                })
+            });
+
+            calendar = $("#calendar").calendar(Object.assign({}, options, {
+                events_source:  () => event_sources
+            }))
+        } else {
+            // do something
+        }
+    }
 });
 
 $('.btn-group button[data-calendar-nav]').each(function() {

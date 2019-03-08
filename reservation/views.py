@@ -6,6 +6,8 @@ from django.views.generic.base import TemplateView
 from reservation.models import Reservation
 from administration.models import Customer
 from administration.models import Service
+import datetime
+
 
 # Create your views here.
 @login_required
@@ -58,21 +60,18 @@ def reservations(request):
     data = dict()
     try:
         if request.method == 'GET':
-            valid_reservations = list(Reservation.objects.values())
-            data['reservations'] = valid_reservations
+            valid_reservations = Reservation.objects.filter(reservation_date_time__gte=datetime.datetime.now())
+            data['reservations'] = [dumpJson(r) for r in valid_reservations]
         else:
             customer = Customer.objects.filter(id == request.POST['customer_id'])
             reservation_service = Service.objects.filter(id == request.POST['service_id'])
             reservation_date_time = request.POST['reservation_time']
-            reservation = Reservation(customer=customer, reservation_date_time=reservation_date_time,
-                                  reservation_service=reservation_service)
-            reservation.save()
+            reservation_obj = Reservation(customer=customer,
+                                          reservation_date_time=reservation_date_time,
+                                          reservation_service=reservation_service)
+            reservation_obj.save()
 
-            data['service'] = {
-                    'customer': customer,
-                    'reservation_date_time': reservation_date_time,
-                    'reservation_service': reservation_service
-                }
+            data['service'] = dumpJson(reservation_obj)
         data['ret'] = 0
     except ValidationError as e:
         data['ret'] = 1
@@ -83,3 +82,33 @@ def reservations(request):
 @login_required
 def new_reservation(request):
     return render(request, 'new_reservation.html', None)
+
+
+def dumpJson(reservation_obj):
+    print(reservation_obj)
+    customer= reservation_obj.customer
+    service = reservation_obj.reservation_service
+    reservation_date_time = reservation_obj.reservation_date_time + datetime.timedelta(hours=8)
+    reservation_length = reservation_obj.reservation_length
+
+    return {
+            'id': reservation_obj.id,
+            'customer': {
+                'id': customer.id,
+                'first_name': customer.first_name,
+                'last_name': customer.last_name
+            },
+            'reservation_date_time': reservation_date_time,
+            'reservation_length': reservation_length,
+            'reservation_date_b': reservation_date_time.date(),
+            'reservation_time_b': reservation_date_time.time().strftime('%H:%M'),
+            'reservation_date_time_ms_b': reservation_date_time.strftime('%s') + '000',
+            'reservation_date_time_ms_e': (reservation_date_time + datetime.timedelta(minutes=reservation_length)).strftime("%s")  + '000',
+            'reservation_service': {
+                'id': service.id,
+                'name': service.name,
+                'description': service.description,
+                'time_type': service.time_type,
+                'rate': service.rate
+            }
+    }

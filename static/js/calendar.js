@@ -1047,8 +1047,9 @@ if(!String.prototype.formatNum) {
 		$('.cal-day-hour-part').each(function(){
             var $this = $(this);
             $this.click(function() {
+            	console.log($(this))
             	$('#newEventModal').modal('toggle');
-				$('#selectTime').html($(this).data('time'));
+				$('#selectTime').html($(this).data('cal-date') + " " + $(this).data('time'));
             });
         });
 
