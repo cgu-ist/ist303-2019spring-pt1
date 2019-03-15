@@ -3,6 +3,7 @@ from django.db.models import (
     CharField,
     DecimalField,
     DateTimeField,
+    PositiveIntegerField,
     BooleanField,
     EmailField,
     AutoField
@@ -17,11 +18,12 @@ class Service(models.Model):
     description = CharField(max_length=255)
     time_type = CharField(max_length=255, validators=[validate_int15_list])
     rate = DecimalField(blank=False, null=False, decimal_places=2, max_digits=5, validators=[DecimalField])
+    limit = PositiveIntegerField(blank=False, null=False, default=65535)
     create_time = DateTimeField(auto_now_add=True)
     update_time = DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"name: {self.name}\n description: {self.description}\n time_type: {self.time_type} rate: {self.rate}"
+        return f"name: {self.name}\n description: {self.description}\n time_type: {self.time_type} rate: {self.rate} limit: {self.limit}"
 
 
 class ActiveManager(models.Manager):

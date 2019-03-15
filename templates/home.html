@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extracss %}
+    <style>
+        p:first-of-type::first-letter {
+            position: relative;
+            top: 8px;
+            float: left;
+            font-size: 3em;
+            line-height: 1;
+            color: #990000;
+            padding: 2px 4px 2px 2px;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+{% block title %} About {% endblock %}
+
+{% block main %}
+<div class="col-sm-8">
+    <p>MiYE(Mud in Your Eye) - a new, small hot spring health spa, located in a remote, scenic part of the US. The software must support the spa’s front desk clerks in managing service reservations and statements of service usage for customers.</p>
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script src="{% static 'js/underscore-min.js' %}"></script>
+<script src="{% static 'js/calendar.js' %}"></script>
+<script  src="{% static 'js/reservation-app.js' %}"></script>
+{% endblock %}

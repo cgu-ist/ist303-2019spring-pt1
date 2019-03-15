@@ -7,11 +7,12 @@ $.ajax({
             let rows =  '';
             data.services.forEach(service => {
                 rows += `<tr id="tr_${service.id}">
-                        <td class="col-1">${service.name}</td>
-                        <td class="col-1">${service.description}</td>
-                        <td class="col-3">${service.time_type}</td>
+                        <td class="col-3">${service.name}</td>
+                        <td class="col-3">${service.description}</td>
+                        <td class="col-2">${service.time_type}</td>
                         <td class="col-1"><span>&#36;</span>${service.rate}</td>
-                        <td class="col-3">
+                        <td class="col-1">${service.limit}</td>
+                        <td class="col-2">
                             <button class="btn deleteBtn btn-primary" data-id="${service.id}"">Delete</button>
                             <button class="btn updateBtn btn-primary" data-id="${service.id}"">Update</button>
                         </td>
@@ -63,6 +64,8 @@ function newService(){
                 <input id="form_time_type" type="text" class="form-control" name="time_type"><br>
                 <label for="rate">Rate:</label>
                 <input id="form_rate" type="text" class="form-control" name="rate"><br>
+                <label for="limit">Limit:</label>
+                <input id="form_limit" type="number" class="form-control" name="limit" min="1" max="65535" value="unlimited"><br>
                 <button class="btn submitBtn btn-primary">New</button>&nbsp;<button type="reset" class="btn btn-primary">Clear</button>&nbsp;<button type="reset" class="btn btn-primary" onclick="cancelForm()">Cancel</button>
             </div>`;
     $('#serviceform').empty();
@@ -72,11 +75,13 @@ function newService(){
         let description = $('#form_description').val();
         let time_type = $('#form_time_type').val();
         let rate = $('#form_rate').val();
+        let limit = $('#form_limit').val();
         ajaxNewService({
             'name': name,
             'description': description,
             'time_type': time_type,
-            'rate': rate
+            'rate': rate,
+            'limit': limit
         })
     });
 }
@@ -91,11 +96,12 @@ function ajaxNewService(service) {
             if (data.ret == 0) {
                 let service = data.service;
                 let row = `<tr id="tr_${service.id}">
-                                <td class="col-1">${service.name}</td>
-                                <td class="col-1">${service.description}</td>
-                                <td class="col-3">${service.time_type}</td>
+                                <td class="col-3">${service.name}</td>
+                                <td class="col-3">${service.description}</td>
+                                <td class="col-2">${service.time_type}</td>
                                 <td class="col-1"><span>&#36;</span>${service.rate}</td>
-                                <td class="col-3">
+                                <td class="col-1">${service.limit}</td>
+                                <td class="col-2">
                                     <button class="btn deleteBtn btn-primary" data-id="${service.id}"">Delete</button>
                                     <button class="btn updateBtn btn-primary" data-id="${service.id}"">Update</button>
                                 </td>
@@ -133,6 +139,8 @@ function updateService(el){
                             <input id="form_time_type" type="text" class="form-control" name="time_type" value="${service.time_type}"><br>
                             <label for="rate">Rate:</label>
                             <input id="form_rate" type="text" class="form-control" name="rate" value="${service.rate}"><br>
+                            <label for="limit">Limit:</label>
+                            <input id="form_limit" type="number" class="form-control" name="limit" min="1" max="65535" value="${service.limit}"><br>
                             <button class="btn submitBtn btn-primary">Update</button>&nbsp;<button type="reset" class="btn btn-primary">Clear</button>&nbsp;<button type="reset" class="btn btn-primary" onclick="cancelForm()">Cancel</button>
                         </div>`;
                 $('#serviceform').empty()
@@ -143,12 +151,14 @@ function updateService(el){
                     let description = $('#form_description').val();
                     let time_type = $('#form_time_type').val();
                     let rate = $('#form_rate').val();
+                    let limit = $('#form_limit').val();
                     ajaxUpdateService({
                         'id': id,
                         'name': name,
                         'description': description,
                         'time_type': time_type,
-                        'rate': rate
+                        'rate': rate,
+                        'limit': limit
                     }, el)
                 });
             }
@@ -168,11 +178,12 @@ function ajaxUpdateService(service, elm) {
                 let service = data.service;
                 let updatedRowElement = $('#tr_' + service.id);
                 row = `<tr id="tr_${service.id}">
-                    <td class="col-1">${service.name}</td>
-                    <td class="col-1">${service.description}</td>
-                    <td class="col-3">${service.time_type}</td>
+                    <td class="col-3">${service.name}</td>
+                    <td class="col-3">${service.description}</td>
+                    <td class="col-2">${service.time_type}</td>
                     <td class="col-1"><span>&#36;</span>${service.rate}</td>
-                    <td class="col-3">
+                    <td class="col-2">${service.limit}</td>
+                    <td class="col-2">
                         <button class="btn deleteBtn btn-primary" data-id="${service.id}"">Delete</button>
                         <button class="btn updateBtn btn-primary" data-id="${service.id}"">Update</button>
                      </td>
