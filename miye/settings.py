@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'administration.apps.AdministrationConfig',
     'reservation.apps.ReservationConfig',
+    'report.apps.ReportConfig',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'miye.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [(os.path.join(BASE_DIR, 'templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

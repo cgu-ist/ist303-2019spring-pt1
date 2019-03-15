@@ -8,7 +8,7 @@
 			<% for(i = 0; i < hours; i++){ %>
 				<div class="cal-day-hour">
 					<% for(l = 0; l < cal._hour_min(i); l++){ %>
-						<div class="row-fluid cal-day-hour-part" data-time=<%= cal._hour(i, l) %>>
+						<div class="row-fluid cal-day-hour-part" data-time=<%= cal._hour(i, l) %> data-date=<%= cal._getCurrentDate() %>>
 							<div class="span1 col-xs-1"><b><%= cal._hour(i, l) %></b></div>
 							<div class="span11 col-xs-11"></div>
 						</div>
@@ -18,9 +18,10 @@
 		</div>
 		
 		<%
+            var leftp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             var k = 1;
             _.each(by_hour, function(event){ %>
-			<div class="pull-left day-event day-highlight dh-event-<%= k %>" style="border-radius:6px; margin-top: <%= (event.top * 30) %>px; height: <%= (event.lines * 30) %>px">
+			<div class="pull-left day-event day-highlight dh-event-<%= (k % 14) %>" style="border-radius:6px; margin-left: <%= (leftp[event.top] * 210) %>px; margin-top: <%= (event.top * 30) %>px; height: <%= (event.lines * 30) %>px; padding-left: 10px">
                 <div><%= event.person %></div>
 {#				<div><a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"#}
 {#				   data-event-class="<%= event['class'] %>" class="event-item">#}
@@ -28,6 +29,12 @@
                 <div><%= event.title %></div>
 			</div>
 		<%
+            console.log(leftp);
+            console.log(event.lines);
+            console.log(event.top);
+            for (var i = 0; i < event.lines; i++) {
+                leftp[event.top + i] += 1;
+            }
             k++;
         }); %>
 	</div>

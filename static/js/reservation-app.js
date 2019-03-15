@@ -35,33 +35,39 @@ var options = {
 
 var calendar = $("#calendar").calendar(options);
 
-$.ajax({
-    url:  '/reservations',
-    type:  'get',
-    dataType:  'json',
-    success: function  (data) {
-        if (data.ret == 0) {
-            var event_sources = []
-            data.reservations.forEach(reservation => {
-                event_sources.push({
-                    "id": reservation.id,
-                    "person": reservation.customer.first_name + ' ' + reservation.customer.last_name,
-                    "title": reservation.reservation_service.name,
-                    "description": reservation.reservation_service.description,
-                    "url": '/reservation/' + reservation.id,
-                    "start": reservation.reservation_date_time_ms_b,
-                    "end": reservation.reservation_date_time_ms_e
-                })
-            });
+getEvents();
 
-            calendar = $("#calendar").calendar(Object.assign({}, options, {
-                events_source:  () => event_sources
-            }))
-        } else {
-            // do something
+function getEvents() {
+    $.ajax({
+        url:  '/reservations',
+        type:  'get',
+        dataType:  'json',
+        success: function  (data) {
+            if (data.ret == 0) {
+                var event_sources = []
+                data.reservations.forEach(reservation => {
+                    event_sources.push({
+                        "id": reservation.id,
+                        "person": reservation.customer.first_name + ' ' + reservation.customer.last_name,
+                        "title": reservation.reservation_service.name,
+                        "description": reservation.reservation_service.description,
+                        "url": '/reservation/' + reservation.id,
+                        "start": reservation.datetime_start_ms,
+                        "end": reservation.datetime_end_ms
+                    })
+                });
+
+                let options = calendar.options
+                calendar = $("#calendar").calendar(Object.assign({}, options, {
+                    events_source:  () => event_sources
+                }))
+            } else {
+                // do something
+            }
         }
-    }
-});
+    });
+}
+
 
 $('.btn-group button[data-calendar-nav]').each(function() {
     var $this = $(this);
@@ -126,24 +132,23 @@ $('#newEventModal').on('show.bs.modal', function (event) {
                     time_rows[service.id] = time
                 })
 
+                let rows = data.services.map(service => {
+                    return `<option value='${service.id}'>${service.description}</option>`;
+                })
+                $('#serviceSelect').html(rows);
+                let options = time_rows[data.services[0].id].map(t => {
+                    return `<option value='${t}'>${t}</option>`
+                })
+                $('#spanSelect').html(options);
+
+
                 $('#serviceSelect').change(function(){
-                    console.log(time_rows)
                     let val = $(this).val()
                     let options = time_rows[val].map(t => {
                         return `<option value='${t}'>${t}</option>`
                     })
                     $('#spanSelect').html(options)
                 });
-
-                rows = data.services.map(service => {
-                    return `<option value='${service.id}'>${service.description}</option>`;
-                })
-                $('#serviceSelect').append(rows);
-                let options = time_rows[data.services[0].id].map(t => {
-                    return `<option value='${t}'>${t}</option>`
-                })
-                $('#spanSelect').html(options)
-
 
             } else {
 
@@ -160,12 +165,16 @@ $('#newEventModal').on('show.bs.modal', function (event) {
                 rows = data.customers.map(customer => {
                     return `<option value='${customer.id}'>${customer.first_name} ${customer.last_name}</option>`;
                 })
-                $('#customerSelect').append(rows);
+                $('#customerSelect').html(rows);
             } else {
 
             }
         }
     })
+
+    $('#btnNewReservation').on("click", (e) => {
+        createReservation();
+    });
   // var button = $(event.relatedTarget) // Button that triggered the modal
   // var recipient = button.data('whatever') // Extract info from data-* attributes
   // // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -174,3 +183,35 @@ $('#newEventModal').on('show.bs.modal', function (event) {
   // modal.find('.modal-title').text('New message to ' + recipient)
   // modal.find('.modal-body input').val(recipient)
 })
+
+function createReservation() {
+    let reservation_date = $('#selectDate').text();
+    let reservation_time = $('#selectTime').text();
+    let service_id = $('#serviceSelect').val() ;
+    let reservation_length = $('#spanSelect').val() ;
+    let customer_id = $('#customerSelect').val() ;
+    console.log(reservation_date);
+    console.log(reservation_time);
+    $.ajax({
+    url:  '/reservation/new',
+    type:  'post',
+    data: {
+        'reservation_date': reservation_date,
+        'reservation_time': reservation_time,
+        'service_id': service_id,
+        'reservation_length': reservation_length,
+        'customer_id': customer_id
+    },
+    dataType:  'json',
+        success: function  (data) {
+            if (data.ret == 0) {
+                $('#newEventModal').modal('hide');
+                getEvents();
+
+            } else {
+                let errorMsg = `${data.message}`
+                $('#errorDiv').html(errorMsg);
+            }
+        }
+    })
+}

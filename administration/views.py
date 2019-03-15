@@ -16,29 +16,45 @@ def service_list(request):
     data = dict()
     try:
         if request.method == 'GET':
-            services = list(Service.objects.all().values())
-            data['services'] = services
+            servicelist = [service2Json(x) for x in Service.objects.all()]
+            data['services'] = servicelist
         else:
-            service = Service(name=request.POST['name'],
-                              description=request.POST['description'],
-                              time_type=request.POST['time_type'],
-                              rate=request.POST['rate'])
+            if request.POST['limit'] == "":
+                service = Service(name=request.POST['name'],
+                                  description=request.POST['description'],
+                                  time_type=request.POST['time_type'],
+                                  rate=request.POST['rate'])
+            else:
+                service = Service(name=request.POST['name'],
+                                  description=request.POST['description'],
+                                  time_type=request.POST['time_type'],
+                                  rate=request.POST['rate'],
+                                  limit=request.POST['limit'])
             service.full_clean()
             service.save()
 
-            data['service'] = {
-                    'id': service.id,
-                    'name': service.name,
-                    'description': service.description,
-                    'time_type': service.time_type,
-                    'rate': service.rate
-                }
+            service2Json(service)
         data['ret'] = 0
     except ValidationError as e:
         data['ret'] = 1
         data['message'] = str(e)
     return JsonResponse(data)
 
+
+def service2Json(service):
+    if service.limit == 65535:
+        limit = "Unlimited"
+    else:
+        limit = service.limit
+
+    return {
+            'id': service.id,
+            'name': service.name,
+            'description': service.description,
+            'time_type': service.time_type,
+            'rate': service.rate,
+            'limit': limit
+    }
 
 @login_required
 def service_detail(request, service_id):
@@ -55,18 +71,27 @@ def service_detail(request, service_id):
                 service.time_type = request.POST['time_type']
             if request.POST['rate'] is not None:
                 service.rate = request.POST['rate']
+            if request.POST['limit'] is None or request.POST['limit'] == "":
+                service.limit = 65535
+            else:
+                service.limit = request.POST['limit']
             service.full_clean()
             service.save()
         elif request.method == 'DELETE':
             service.delete()
 
+        if service.limit == 65535:
+            limit = "Unlimited"
+        else:
+            limit = service.limit
         data['ret'] = 0
         data['service'] = {
                 'id': service.id,
                 'name': service.name,
                 'description': service.description,
                 'time_type': service.time_type,
-                'rate': service.rate
+                'rate': service.rate,
+                'limit': limit
             }
         return JsonResponse(data)
     except ValidationError as e:

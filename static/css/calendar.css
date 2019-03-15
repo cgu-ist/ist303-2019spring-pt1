@@ -274,9 +274,9 @@
   margin-left: -60px;
 }
 #cal-day-box .day-event {
-  position: relative;
+  position: absolute;
   max-width: 200px;
-  overflow: hidden;
+  padding-left: 60px;
 }
 #cal-day-box .day-highlight {
   line-height: 30px;
@@ -381,61 +381,75 @@
 .day-highlight.dh-event-1 {
   color: #ffffff;
   background-color: black;
+  width: 200px;
 }
 .day-highlight.dh-event-2:hover,
 .day-highlight.dh-event-2 {
   color: #f5f5f5;
   background-color: #4286f4;
+  width: 200px;
 }
 .day-highlight.dh-event-3:hover,
 .day-highlight.dh-event-3 {
   color: #f7f7f7;
-  background-color: #b5c7e5
+  background-color: #b5c7e5;
+  width: 200px;
 }
 .day-highlight.dh-event-4:hover,
 .day-highlight.dh-event-4 {
   color: #f9f2f4;
   background-color: #061a3d;
+  width: 200px;
 }
 .day-highlight.dh-event-5:hover,
 .day-highlight.dh-event-5 {
   background-color: blue;
+  width: 200px;
 }
 .day-highlight.dh-event-6:hover,
 .day-highlight.dh-event-6 {
   background-color: indigo;
+  width: 200px;
 }
 .day-highlight.dh-event-7:hover,
 .day-highlight.dh-event-7 {
   background-color: violet;
+  width: 200px;
 }
 .day-highlight.dh-event-8:hover,
 .day-highlight.dh-event-8 {
   background-color: orange;
+  width: 200px;
 }
 .day-highlight.dh-event-9:hover,
 .day-highlight.dh-event-9 {
   background-color: yellow;
+  width: 200px;
 }
 .day-highlight.dh-event-10:hover,
 .day-highlight.dh-event-10 {
   background-color: green;
+  width: 200px;
 }
 .day-highlight.dh-event-11:hover,
 .day-highlight.dh-event-11 {
   background-color: blue;
+  width: 200px;
 }
 .day-highlight.dh-event-12:hover,
 .day-highlight.dh-event-12 {
   background-color: indigo;
+  width: 200px;
 }
 .day-highlight.dh-event-13:hover,
 .day-highlight.dh-event-13 {
   background-color: violet;
+  width: 200px;
 }
 .day-highlight.dh-event-14:hover,
 .day-highlight.dh-event-14 {
   background-color: red;
+  width: 200px;
 }
 
 .cal-row-head [class*="cal-cell"]:first-child,

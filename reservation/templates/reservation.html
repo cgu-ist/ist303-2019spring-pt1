@@ -1,5 +1,9 @@
-{% extends 'reservation_base.html' %}
+{% extends 'base.html' %}
 {% load static %}
+{% block extracss %}<link rel="stylesheet" href="{% static 'css/calendar.css' %}" crossorigin="anonymous">{% endblock %}
+
+{% block title %} Reservation {% endblock %}
+
 {% block main %}
 
 <div class="container">
@@ -37,9 +41,14 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="hidden" data-error=""></div>
+      <div id="errorDiv" class="alert alert-danger"></div>
       <div class="modal-body">
-        <label id="selectTime" ></label>
+        <p>
+            <label id="selectDate"></label>
+        </p>
+        <p>
+            <label id="selectTime"></label>
+        </p>
         <p>
           <label for="serviceSelect">Please select service to be reserved:</label>
           <select class="form-control" id="serviceSelect"></select>
@@ -55,7 +64,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button id="btnNewReservation" type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -65,5 +74,7 @@
 {% endblock %}
 
 {% block extrajs %}
+<script src="{% static 'js/underscore-min.js' %}"></script>
+<script src="{% static 'js/calendar.js' %}"></script>
 <script  src="{% static 'js/reservation-app.js' %}"></script>
 {% endblock %}

@@ -721,6 +721,13 @@ if(!String.prototype.formatNum) {
 		return this.options.templates['month-day'](t);
 	}
 
+	Calendar.prototype._getCurrentDate = function() {
+		let current = this.options.position.start;
+		let date_str = current.getFullYear() + "-" + (current.getMonth() + 1) + "-" + current.getDate()
+		console.log("current date " + date_str);
+		return date_str;
+	};
+
 	Calendar.prototype._getHoliday = function(date) {
 		var result = false;
 		$.each(getHolidays(this, date.getFullYear()), function() {
@@ -1047,9 +1054,9 @@ if(!String.prototype.formatNum) {
 		$('.cal-day-hour-part').each(function(){
             var $this = $(this);
             $this.click(function() {
-            	console.log($(this))
             	$('#newEventModal').modal('toggle');
-				$('#selectTime').html($(this).data('cal-date') + " " + $(this).data('time'));
+            	$('#selectDate').html($(this).data('date'));
+				$('#selectTime').html($(this).data('time'));
             });
         });
 

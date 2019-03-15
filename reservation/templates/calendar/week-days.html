@@ -1,10 +1,9 @@
 <% _.each(events, function(event){ %>
 <div class="cal-row-fluid">
-	<div class="cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>" data-event-class="<%= event['class'] %>">
-        <div>
-            <div style="width:100%; position: relative; display: block"><span><%= event.start_hour %></span></div>
-            <div style="width:100%; position: relative; display: block"><span><%= event.title %></span></div>
-        </div>
+	<div class="cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>" style="padding: 4px; border-radius: 10px;" data-event-class="<%= event['class'] %>">
+        <% console.log(event.top % (48 * event.start_day)); %>
+        <%= event.start_hour %>
+        <%= event.title %>
 	</div>
 </div>
 <% }); %>
