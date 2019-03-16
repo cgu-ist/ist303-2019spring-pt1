@@ -120,6 +120,7 @@ $('#events-modal .modal-header, #events-modal .modal-footer').click(function(e){
 });
 
 $('#newEventModal').on('show.bs.modal', function (event) {
+    $('#errorDiv').html('');
     $.ajax({
         url:  '/service/list',
         type:  'get',
@@ -211,6 +212,24 @@ function createReservation() {
             } else {
                 let errorMsg = `${data.message}`
                 $('#errorDiv').html(errorMsg);
+            }
+        }
+    })
+}
+
+function deleteReservation(id) {
+    console.log("Delete " + id)
+    $.ajax({
+    url:  '/reservation/delete',
+    type:  'post',
+    data: {
+        'id': id,
+    },
+    dataType:  'json',
+        success: function  (data) {
+            if (data.ret == 0) {
+                getEvents();
+            } else {
             }
         }
     })
