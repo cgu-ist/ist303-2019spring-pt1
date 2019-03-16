@@ -37,6 +37,7 @@ urlpatterns = [
     path('customer/<int:customer_id>', administration_views.customer_detail, name="customer_detail"),
     path('reservations', reservation_views.reservations, name='reservations_main'),
     path('reservation/new', reservation_views.new_reservation, name='new_reservation'),
+    path('reservation/delete', reservation_views.delete_reservation, name='delete_reservation'),
     path('reservation', reservation_views.reservation, name='reservation_main'),
     path('reservation/calendar/day.html', reservation_views.DayHtml.as_view()),
     path('reservation/calendar/events-list.html', reservation_views.EventsListHtml.as_view()),

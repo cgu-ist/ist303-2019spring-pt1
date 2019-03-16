@@ -35,7 +35,6 @@
             </div>
           </div>
         </nav>
-
     </div>
     <div class="col-sm-pull-2"></div>
 
@@ -43,14 +42,12 @@
         <h1 class="text-center">
             {% block title %}{% endblock %}
         </h1>
-        <div class="container d-flex h-100">
-          <div class="row justify-content-center">
-            <div class="col-10">
-              {% block main %}
-              {% endblock %}
-            </div>
-          </div>
+        <div class="col-sm-2"></div>
+        <div class="container d-flex h-100 col-sm-8">
+            {% block main %}
+            {% endblock %}
         </div>
+        <div class="col-sm-pull-2"></div>
     </div>
 
 
