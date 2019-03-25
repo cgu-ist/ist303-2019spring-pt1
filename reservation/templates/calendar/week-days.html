@@ -1,9 +1,21 @@
-<% _.each(events, function(event){ %>
+<%
+var event_pre_day = [0, 0, 0, 0, 0, 0, 0];
+_.each(events, function(event){
+    let event_time = new Date();
+    event_time.setTime(event.start);
+    let days = event_time.getDay();
+    let top = event_pre_day[days];
+    console.log(days);
+    console.log(event_pre_day);
+    console.log(top);
+%>
 <div class="cal-row-fluid">
-	<div class="cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>" style="padding: 4px; border-radius: 10px;" data-event-class="<%= event['class'] %>">
-        <% console.log(event.top % (48 * event.start_day)); %>
+	<div class="day-highlight" style="margin-left: <%= days  * 163 %>px; width: 163px; margin-top: <%= top * 60 %>px;">
         <%= event.start_hour %>
         <%= event.title %>
 	</div>
 </div>
-<% }); %>
+<%
+    event_pre_day[days]++;
+});
+%>

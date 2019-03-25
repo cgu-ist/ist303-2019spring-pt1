@@ -49,6 +49,7 @@ urlpatterns = [
     path('reservation/calendar/year.html', reservation_views.YearHtml.as_view()),
     path('reservation/calendar/year-month.html', reservation_views.YearMonthHtml.as_view()),
     path('billing', report_views.billing, name='billing_main'),
+    path('billing/summary', report_views.billing_summary, name='billing_summary'),
     path('home', TemplateView.as_view(template_name='home.html'))
 ]
 

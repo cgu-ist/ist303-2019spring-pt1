@@ -4,10 +4,37 @@
 {% block title %}Billing{% endblock %}
 
 {% block main %}
+    <p><span class="label label-primary" style="font-size: medium">Please Select start date and end date:</span></p>
+    <div>
+        <div class="col-sm-6 row">
+            <span class='col-sm-3 align-right'>Start Date : </span>
+            <span class='col-sm-9 align-center'><input type='text' class="form-control" id="form_startdate"></span>
+{#            <input type="text" id="form_startdate" class="datepicker forminput" data-date-format="mm/dd/yyyy">#}
+        </div>
+        <div class="col-sm-6 row">
+            <span class='col-sm-3 align-right'>End  Date : </span>
+            <span class='col-sm-9 align-center'><input type='text' class="form-control" id="form_enddate"></span>
 
+{#            <span class="label label-default" style="font-size: medium">End to : </span><input type="text" id="form_enddate" class="datepicker forminput" data-date-format="mm/dd/yyyy">#}
+        </div>
+    </div>
 
+    <div style="position: relative; top: 40px;">
+        <p><span class="label label-primary" style="font-size: medium">Please select customer:   </span><select id="form_customer" class="forminput" name="customerSelect"></select></p>
+        <p><button id="btnQuery" class="btn btn-primary btn-md col-sm-2"  style="font-size: medium" onclick="get_billing()">Submit</button><button id="btnPrint" class="btn btn-secondary btn-md col-sm-2"  style="font-size: medium" onclick="print_billing()" disabled>Print</button></p>
+    </div>
+
+    <div class="hiddendiv" id="billDiv" style="border: 1px dot-dash black;">
+    </div>
 {% endblock %}
 
 {% block extrajs %}
-{#<script  src="{% static 'js/billing-app.js' %}"></script>#}
+<script  src="{% static 'js/billing-app.js' %}"></script>
+<script  src="{% static 'js/jquery-ui.js' %}"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#form_startdate').datepicker({"dateFormat": "yy-mm-dd"} );
+        $('#form_enddate').datepicker({"dateFormat": "yy-mm-dd"} );
+    });
+</script>
 {% endblock %}
