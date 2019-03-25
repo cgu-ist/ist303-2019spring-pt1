@@ -60,7 +60,7 @@ def reservations(request):
     data = dict()
     try:
         if request.method == 'GET':
-            valid_reservations = Reservation.objects.filter(date__gte=datetime.datetime.now().date())
+            valid_reservations = Reservation.objects.filter(date__gte=current_time().date())
             data['reservations'] = [dumpJson(r) for r in valid_reservations]
         else:
             customer = Customer.objects.filter(id == request.POST['customer_id'])
@@ -119,6 +119,7 @@ def delete_reservation(request):
     try:
         if request.method == 'POST':
             reservation_obj = Reservation.objects.get(id=request.POST['id'])
+            validateDelete(reservation_obj)
             reservation_obj.delete()
         data['ret'] = 0
     except ValidationError as e:
@@ -137,6 +138,8 @@ def dumpJson(reservation_obj):
 
     start_datetime = datetime.datetime.combine(date, start_time) + datetime.timedelta(hours=7)
     end_datetime = datetime.datetime.combine(date, end_time) + datetime.timedelta(hours=7)
+    period = int((end_datetime - start_datetime).total_seconds() / 60)
+    amount = period * service.rate
 
     return {
             'id': reservation_obj.id,
@@ -147,6 +150,10 @@ def dumpJson(reservation_obj):
             },
             'datetime_start_ms': start_datetime.strftime('%s') + '000',
             'datetime_end_ms': end_datetime.strftime('%s') + '000',
+            'date' : reservation_obj.date,
+            'start_time': reservation_obj.start_time,
+            'period': period,
+            'amount': amount,
             'reservation_service': {
                 'id': service.id,
                 'name': service.name,
@@ -155,6 +162,14 @@ def dumpJson(reservation_obj):
                 'rate': service.rate
             }
     }
+
+
+def validateDelete(reservation):
+    reservation_datetime = datetime.datetime.combine(reservation.date, reservation.start_time)
+    if reservation_datetime < current_time():
+        raise ValidationError(f"You are not supposed to cancel a stated reservation.")
+    if reservation_datetime - current_time() <= datetime.timedelta(minutes=10):
+        raise ValidationError(f"You can't cancel the reservation now service will be started within 10 minutes.")
 
 
 def validate_self(validating):
@@ -180,4 +195,10 @@ def validate_other(validating):
         if overlap.count() >= limit:
             raise ValidationError(f"Reservation numbers at the {check_time} is beyond limit {limit}.")
         check_date_time += datetime.timedelta(minutes=30)
+
+
+def current_time():
+    return datetime.datetime.now() + datetime.timedelta(hours=-7)
+
+
 

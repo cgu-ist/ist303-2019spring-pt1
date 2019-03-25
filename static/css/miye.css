@@ -1,0 +1,23 @@
+.hiddendiv {
+    visibility: visible;
+    margin-top: 200px;
+    margin-left: 20px;
+    margin-left: 20px;
+    width: 60%;
+    border: 1px dot-dash black;
+    background-color: #2b669a;
+    color: #151515;
+}
+
+.hiddendiv:empty{
+    visibility: hidden;
+}
+
+.forminput {
+    margin-left: 10px;
+}
+
+.dollar:before {
+    content: '$';
+    font-size: small;
+}

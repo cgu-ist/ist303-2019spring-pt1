@@ -191,8 +191,6 @@ function createReservation() {
     let service_id = $('#serviceSelect').val() ;
     let reservation_length = $('#spanSelect').val() ;
     let customer_id = $('#customerSelect').val() ;
-    console.log(reservation_date);
-    console.log(reservation_time);
     $.ajax({
     url:  '/reservation/new',
     type:  'post',
@@ -204,7 +202,7 @@ function createReservation() {
         'customer_id': customer_id
     },
     dataType:  'json',
-        success: function  (data) {
+        success: function (data) {
             if (data.ret == 0) {
                 $('#newEventModal').modal('hide');
                 getEvents();
@@ -218,7 +216,6 @@ function createReservation() {
 }
 
 function deleteReservation(id) {
-    console.log("Delete " + id)
     $.ajax({
     url:  '/reservation/delete',
     type:  'post',
@@ -230,6 +227,7 @@ function deleteReservation(id) {
             if (data.ret == 0) {
                 getEvents();
             } else {
+                let errorMsg = `${data.message}`
             }
         }
     })

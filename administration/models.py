@@ -51,5 +51,8 @@ class Customer(models.Model):
     objects = models.Manager()
     actives = ActiveManager()
 
+    def full_name(self):
+        return self.first_name + " " + self.last_name;
+
     def __str__(self):
         return f"Customer id: {self.id}, name: {self.first_name} {self.last_name}, sex: {self.gender}, {self.active}"
