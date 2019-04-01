@@ -174,6 +174,7 @@ $('#newEventModal').on('show.bs.modal', function (event) {
     })
 
     $('#btnNewReservation').on("click", (e) => {
+        e.stopImmediatePropagation();
         createReservation();
     });
   // var button = $(event.relatedTarget) // Button that triggered the modal
@@ -223,7 +224,8 @@ function deleteReservation(id) {
         'id': id,
     },
     dataType:  'json',
-        success: function  (data) {
+        success: function (data) {
+
             if (data.ret == 0) {
                 getEvents();
             } else {

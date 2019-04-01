@@ -31,6 +31,7 @@ function get_billing() {
         dataType:  'json',
         success: function  (data) {
             if (data.ret == 0) {
+                $('#billDiv').empty();
                 let summary = `<h2 class="col-sm-12">Billing Summary</h2>
                     <p><span class="col-sm-6">Customer: ${data.customer_name}</span><span class="col-sm-6">Total Due: <span class="dollar">${data.total}</span></span></p>
                     <p><span class="col-sm-6">Start: ${data.start}</span><span class="col-sm-6">End: ${data.end}</span></p>
@@ -55,7 +56,26 @@ function get_billing() {
                         </tr>`;
                 });
                 summary += `</tbody></table>`;
-                $('#billDiv').html(summary);
+                $('#billDiv').append(summary);
+
+                let cancelled = `<h2 class="col-sm-12" style="margin-top: 10px;">Cancelled Reservations</h2>`;
+                cancelled += `<table  class="table table-sm table-striped table-hover"  id="billingTable">
+                        <thead class="thead-dark">
+                            <th class="col-2 text-left">Service</th>
+                            <th class="col-2 text-left">Start Time</th>
+                            <th class="col-2 text-left">Service Time</th>
+                        </thead>
+                        <tbody>`;
+                data.cancelled_reservations.forEach(reservation => {
+                    cancelled += `<tr>
+                        <td>${reservation.reservation_service.name}</td>
+                        <td>${reservation.start_time}</td>
+                        <td>${reservation.period}</td>
+                        </tr>`;
+                });
+                cancelled += `</tbody></table>`;
+                $('#billDiv').append(cancelled);
+
                 $('#btnPrint').removeClass('btn-secondary');
                 $('#btnPrint').addClass('btn-primary');
                 $('#btnPrint').removeAttr('disabled')

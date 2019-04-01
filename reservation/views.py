@@ -60,7 +60,7 @@ def reservations(request):
     data = dict()
     try:
         if request.method == 'GET':
-            valid_reservations = Reservation.objects.filter(date__gte=current_time().date())
+            valid_reservations = Reservation.objects.filter(date__gte=current_time().date()).filter(status__exact='N')
             data['reservations'] = [dumpJson(r) for r in valid_reservations]
         else:
             customer = Customer.objects.filter(id == request.POST['customer_id'])
@@ -114,13 +114,14 @@ def new_reservation(request):
 
 
 @login_required
-def delete_reservation(request):
+def cancel_reservation(request):
     data = dict()
     try:
         if request.method == 'POST':
             reservation_obj = Reservation.objects.get(id=request.POST['id'])
-            validateDelete(reservation_obj)
-            reservation_obj.delete()
+            validate_cancel(reservation_obj)
+            reservation_obj.status = 'C'
+            reservation_obj.save()
         data['ret'] = 0
     except ValidationError as e:
         data['ret'] = 1
@@ -164,7 +165,7 @@ def dumpJson(reservation_obj):
     }
 
 
-def validateDelete(reservation):
+def validate_cancel(reservation):
     reservation_datetime = datetime.datetime.combine(reservation.date, reservation.start_time)
     if reservation_datetime < current_time():
         raise ValidationError(f"You are not supposed to cancel a stated reservation.")
