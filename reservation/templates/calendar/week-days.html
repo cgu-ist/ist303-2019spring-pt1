@@ -9,10 +9,11 @@ _.each(events, function(event){
     console.log(event_pre_day);
     console.log(top);
 %>
-<div class="cal-row-fluid">
-	<div class="day-highlight" style="margin-left: <%= days  * 163 %>px; width: 163px; margin-top: <%= top * 60 %>px;">
-        <%= event.start_hour %>
-        <%= event.title %>
+<div>
+	<div class="day-highlight" style="display:inline-block; margin-left: <%= days  * 163 %>px; width: 163px;">
+        <p><%= event.start_hour %><span> ~ </span><%= event.end_hour %></p>
+        <p><%= event.person %></p>
+        <p><%= event.title %></p>
 	</div>
 </div>
 <%

@@ -23,10 +23,12 @@ def billing_summary(request):
             start = request.POST['start']
             end = request.POST['end']
             customer = Customer.objects.get(id=int(request.POST['customer_id']))
-            reservations = Reservation.objects.order_by('date').filter(customer=customer).filter(
-                date__gte=start).filter(date__lte=end)
+            unpaid_reservations = Reservation.objects.order_by('date').filter(customer=customer).filter(
+                date__gte=start).filter(date__lte=end).filter(status__exact='N')
+            cancelled_reservations = Reservation.objects.order_by('date').filter(customer=customer).filter(
+                date__gte=start).filter(date__lte=end).filter(status__exact='C')
             total = 0
-            for reservation in reservations:
+            for reservation in unpaid_reservations:
                 peroid = datetime.combine(reservation.date, reservation.end_time) - datetime.combine(reservation.date, reservation.start_time)
                 total += Decimal(peroid.total_seconds() / 60) * reservation.reservation_service.rate
             data["customer_id"] = customer.id
@@ -34,7 +36,8 @@ def billing_summary(request):
             data["start"] = start
             data["end"] = end
             data["total"] = total
-            data['reservations'] = [dumpJson(r) for r in reservations]
+            data['reservations'] = [dumpJson(r) for r in unpaid_reservations]
+            data['cancelled_reservations'] = [dumpJson(r) for r in cancelled_reservations]
         data['ret'] = 0
     except ValidationError as e:
         data['ret'] = 1

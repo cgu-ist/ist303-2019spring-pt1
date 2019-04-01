@@ -21,7 +21,8 @@
 
     <div style="position: relative; top: 40px;">
         <p><span class="label label-primary" style="font-size: medium">Please select customer:   </span><select id="form_customer" class="forminput" name="customerSelect"></select></p>
-        <p><button id="btnQuery" class="btn btn-primary btn-md col-sm-2"  style="font-size: medium" onclick="get_billing()">Submit</button><button id="btnPrint" class="btn btn-secondary btn-md col-sm-2"  style="font-size: medium" onclick="print_billing()" disabled>Print</button></p>
+        <p><span class="col-sm-2" style="margin-left: 4px; margin-right: 4px; padding-left: 24px; padding-right: 24px;"><button id="btnQuery" class="btn btn-primary btn-md"  style="font-size: medium;" onclick="get_billing()">Submit</button></span>
+            <span class="col-sm-2" style="margin-left: 4px; margin-right: 4px; padding-left: 24px; padding-right: 24px;"><button id="btnPrint" class="btn btn-secondary btn-md"  style="font-size: medium;" onclick="print_billing()" disabled>Print</button></span></p>
     </div>
 
     <div class="hiddendiv" id="billDiv" style="border: 1px dot-dash black;">
