@@ -8,7 +8,7 @@
             %>
 				<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>" data-event-class="<%= event['class'] %>"
 					class="pull-left event <%= event['class'] %>" data-toggle="tooltip"
-					title="<%=  event_time.getHours() + ':' + event_time.getMinutes() + ' ' + event.person + ' - ' + event.title %>"></a>
+					title="<%=  event_time.getHours() + ':' + ('0' + event_time.getMinutes()).slice(-2) + ' ' + event.person + ' - ' + event.title %>"></a>
 			<% }); %>
 		</div>
 	<% } %>

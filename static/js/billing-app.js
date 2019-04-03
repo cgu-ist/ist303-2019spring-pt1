@@ -40,17 +40,19 @@ function get_billing() {
                 summary += `<table  class="table table-sm table-striped table-hover"  id="billingTable">
                         <thead class="thead-dark">
                             <th class="col-2 text-left">Service</th>
+                            <th class="col-2 text-left">Service Date</th>
                             <th class="col-2 text-left">Start Time</th>
                             <th class="col-2 text-left">Service Time</th>
-                            <th class="col-3 text-left">Rate</th>
-                            <th class="col-3 text-left">Amount</th>
+                            <th class="col-2 text-left">Rate</th>
+                            <th class="col-2 text-left">Amount</th>
                         </thead>
                         <tbody>`;
                 data.reservations.forEach(reservation => {
                     summary += `<tr>
                         <td>${reservation.reservation_service.name}</td>
+                        <td>${reservation.date}</td>
                         <td>${reservation.start_time}</td>
-                        <td>${reservation.period}</td>
+                        <td>${reservation.period} minutes</td>
                         <td>${reservation.reservation_service.rate}</td>
                         <td>${reservation.amount}</td>
                         </tr>`;
@@ -62,6 +64,7 @@ function get_billing() {
                 cancelled += `<table  class="table table-sm table-striped table-hover"  id="billingTable">
                         <thead class="thead-dark">
                             <th class="col-2 text-left">Service</th>
+                            <th class="col-2 text-left">Service Date</th>
                             <th class="col-2 text-left">Start Time</th>
                             <th class="col-2 text-left">Service Time</th>
                         </thead>
@@ -69,8 +72,9 @@ function get_billing() {
                 data.cancelled_reservations.forEach(reservation => {
                     cancelled += `<tr>
                         <td>${reservation.reservation_service.name}</td>
+                        <td>${reservation.date}</td>
                         <td>${reservation.start_time}</td>
-                        <td>${reservation.period}</td>
+                        <td>${reservation.period} minutes</td>
                         </tr>`;
                 });
                 cancelled += `</tbody></table>`;
