@@ -36,7 +36,6 @@ function get_billing() {
                     <p><span class="col-sm-6">Customer: ${data.customer_name}</span><span class="col-sm-6">Total Due: <span class="dollar">${data.total}</span></span></p>
                     <p><span class="col-sm-6">Start: ${data.start}</span><span class="col-sm-6">End: ${data.end}</span></p>
                 `;
-                console.log(data.reservations);
                 summary += `<table  class="table table-sm table-striped table-hover"  id="billingTable">
                         <thead class="thead-dark">
                             <th class="col-2 text-left">Service</th>

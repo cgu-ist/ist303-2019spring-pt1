@@ -33,7 +33,7 @@ def service_list(request):
             service.full_clean()
             service.save()
 
-            service2Json(service)
+            data['service'] = service2Json(service)
         data['ret'] = 0
     except ValidationError as e:
         data['ret'] = 1
