@@ -130,7 +130,6 @@ def cancel_reservation(request):
 
 
 def dumpJson(reservation_obj):
-    print(reservation_obj)
     customer = reservation_obj.customer
     service = reservation_obj.reservation_service
     date = reservation_obj.date
@@ -177,7 +176,7 @@ def validate_self(validating):
     left = Reservation.objects.filter(customer=validating.customer).filter(date=validating.date).filter(
         start_time__lte=validating.start_time).filter(end_time__gt=validating.start_time)
     right = Reservation.objects.filter(customer=validating.customer).filter(date=validating.date).filter(
-        start_time__lt=validating.end_time).filter(end_time__gte=validating.start_time)
+        start_time__lt=validating.end_time).filter(end_time__gte=validating.end_time)
 
     if left.count() + right.count() > 0:
         raise ValidationError(f"Multiple reservation at the same time is not allowed.")
