@@ -277,7 +277,9 @@
   position: absolute;
   max-width: 200px;
   padding-left: 60px;
+  overflow: scroll;
 }
+
 #cal-day-box .day-highlight {
   line-height: 30px;
   padding-left: 8px;
@@ -287,7 +289,7 @@
   -webkit-box-sizing: border-box;
   border: 1px solid #c3c3c3;
   margin: 1px 1px;
-  overflow: hidden;
+  overflow: scroll;
   text-overflow: ellipsis;
 }
 #cal-day-box .day-highlight.dh-event-important {
@@ -305,6 +307,7 @@
 #cal-day-box .day-highlight.dh-event-success {
   border: 1px solid #006400;
 }
+
 #cal-day-box .day-highlight.dh-event-special {
   background-color: #ffe6ff;
   border: 1px solid #800080;
@@ -588,3 +591,4 @@ a.cal-event-week {
 .badge-important {
   background-color: #b94a48;
 }
+

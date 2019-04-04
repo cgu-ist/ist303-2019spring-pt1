@@ -13,8 +13,8 @@ $.ajax({
                         <td class="col-1"><span>&#36;</span>${service.rate}</td>
                         <td class="col-1">${service.limit}</td>
                         <td class="col-2">
-                            <button class="btn deleteBtn btn-primary" data-id="${service.id}"">Delete</button>
-                            <button class="btn updateBtn btn-primary" data-id="${service.id}"">Update</button>
+                            <button class="btn deleteBtn btn-primary" data-id="${service.id}">Delete</button>
+                            <button class="btn updateBtn btn-primary" data-id="${service.id}">Update</button>
                         </td>
                     </tr>`;
             });
@@ -41,7 +41,7 @@ function bindBtn() {
 }
 
 function deleteService(el){
-    customerId  =  $(el).data('id')
+    let customerId  =  $(el).data('id')
     $.ajax({
         url:  `/service/${customerId}`,
         type:  'delete',
@@ -57,16 +57,18 @@ function newService(){
            <div>
                 <div id="errorDiv" class="alert alert-danger hidden"></div>
                 <label for="name">Name: </label>
-                <input id="form_name" type="text" class="form-control" name="name"><br>
+                <input id="form_name" type="text" class="form-control required" name="name" required="true"><br>
                 <label for="name">Description: </label>
-                <input id="form_description" type="text" class="form-control" name="description"><br>
+                <input id="form_description" type="text" class="form-control required" name="description" required="true"><br>
                 <label for="time_type">Time Type: </label>
-                <input id="form_time_type" type="text" class="form-control" name="time_type"><br>
+                <input id="form_time_type" type="text" class="form-control required" name="time_type" required="true"><br>
                 <label for="rate">Rate:</label>
-                <input id="form_rate" type="text" class="form-control" name="rate"><br>
+                <input id="form_rate" type="text" class="form-control required" name="rate" required="true"><br>
                 <label for="limit">Limit:</label>
                 <input id="form_limit" type="number" class="form-control" name="limit" min="1" max="65535" value="unlimited"><br>
-                <button class="btn submitBtn btn-primary">New</button>&nbsp;<button type="reset" class="btn btn-primary">Clear</button>&nbsp;<button type="reset" class="btn btn-primary" onclick="cancelForm()">Cancel</button>
+                <button class="btn submitBtn btn-primary">New</button>&nbsp;
+                <button type="reset" class="btn btn-primary">Clear</button>&nbsp;
+                <button class="btn btn-primary" onclick="cancelForm()">Cancel</button>
             </div>`;
     $('#serviceform').empty();
     $('#serviceform').append(form);
@@ -102,8 +104,8 @@ function ajaxNewService(service) {
                                 <td class="col-1"><span>&#36;</span>${service.rate}</td>
                                 <td class="col-1">${service.limit}</td>
                                 <td class="col-2">
-                                    <button class="btn deleteBtn btn-primary" data-id="${service.id}"">Delete</button>
-                                    <button class="btn updateBtn btn-primary" data-id="${service.id}"">Update</button>
+                                    <button class="btn deleteBtn btn-primary" data-id="${service.id}">Delete</button>
+                                    <button class="btn updateBtn btn-primary" data-id="${service.id}">Update</button>
                                 </td>
                             </tr>`;
                 $('#myTable tbody').append(row);
@@ -119,7 +121,7 @@ function ajaxNewService(service) {
 }
 
 function updateService(el){
-    customerId  =  $(el).data('id')
+    let customerId  =  $(el).data('id')
     $.ajax({
         url:  `/service/${customerId}`,
         type:  'get',
@@ -132,16 +134,16 @@ function updateService(el){
                             <div id="errorDiv" class="alert alert-danger hidden"></div>
                             <input id="form_id" type="hidden" value="${service.id}">
                             <label for="name">Name: </label>
-                            <input id="form_name" type="text" class="form-control" name="name" value="${service.name}"><br>
+                            <input id="form_name" type="text" class="form-control required" name="name" value="${service.name}" required="true"><br>
                             <label for="name">Description: </label>
-                            <input id="form_description" type="text" class="form-control" name="description" value="${service.description}"><br>
+                            <input id="form_description" type="text" class="form-control required" name="description" value="${service.description}" required="true"><br>
                             <label for="time_type">Time Type: </label>
-                            <input id="form_time_type" type="text" class="form-control" name="time_type" value="${service.time_type}"><br>
+                            <input id="form_time_type" type="text" class="form-control required" name="time_type" value="${service.time_type}" required="true"><br>
                             <label for="rate">Rate:</label>
-                            <input id="form_rate" type="text" class="form-control" name="rate" value="${service.rate}"><br>
+                            <input id="form_rate" type="text" class="form-control required" name="rate" value="${service.rate}" required="true"><br>
                             <label for="limit">Limit:</label>
                             <input id="form_limit" type="number" class="form-control" name="limit" min="1" max="65535" value="${service.limit}"><br>
-                            <button class="btn submitBtn btn-primary">Update</button>&nbsp;<button type="reset" class="btn btn-primary">Clear</button>&nbsp;<button type="reset" class="btn btn-primary" onclick="cancelForm()">Cancel</button>
+                            <button class="btn submitBtn btn-primary">Update</button>&nbsp;<button type="reset" class="btn btn-primary">Clear</button>&nbsp;<button class="btn btn-primary" onclick="cancelForm()" >Cancel</button>
                         </div>`;
                 $('#serviceform').empty()
                 $('#serviceform').append(form)
