@@ -134,7 +134,7 @@ $('#newEventModal').on('show.bs.modal', function (event) {
                 })
 
                 let rows = data.services.map(service => {
-                    return `<option value='${service.id}'>${service.description}</option>`;
+                    return `<option value='${service.id}'>${service.name}</option>`;
                 })
                 $('#serviceSelect').html(rows);
                 let options = time_rows[data.services[0].id].map(t => {

@@ -103,6 +103,7 @@ def new_reservation(request):
                                           end_time=end_time,
                                           reservation_service=reservation_service)
             reservation_obj.full_clean()
+            validate_past_time(reservation_obj)
             validate_self(reservation_obj)
             validate_other(reservation_obj)
             reservation_obj.save()
@@ -172,10 +173,15 @@ def validate_cancel(reservation):
         raise ValidationError(f"You can't cancel the reservation now service will be started within 10 minutes.")
 
 
+def validate_past_time(validating):
+    if datetime.datetime.combine(validating.date, validating.start_time) <= current_time():
+        raise ValidationError(f"Can't make reservation in the past.")
+
+
 def validate_self(validating):
-    left = Reservation.objects.filter(customer=validating.customer).filter(date=validating.date).filter(
+    left = Reservation.objects.filter(status__exact='N').filter(customer=validating.customer).filter(date=validating.date).filter(
         start_time__lte=validating.start_time).filter(end_time__gt=validating.start_time)
-    right = Reservation.objects.filter(customer=validating.customer).filter(date=validating.date).filter(
+    right = Reservation.objects.filter(status__exact='N').filter(customer=validating.customer).filter(date=validating.date).filter(
         start_time__lt=validating.end_time).filter(end_time__gte=validating.end_time)
 
     if left.count() + right.count() > 0:
@@ -190,7 +196,7 @@ def validate_other(validating):
 
     while check_date_time < check_end_time:
         check_time = check_date_time.time()
-        overlap = Reservation.objects.filter(reservation_service=validating.reservation_service).filter(
+        overlap = Reservation.objects.filter(status__exact='N').filter(reservation_service=validating.reservation_service).filter(
             date=validating.date).filter(start_time__lte=check_time).filter(end_time__gt=check_time)
         if overlap.count() >= limit:
             raise ValidationError(f"Reservation numbers at the {check_time} is beyond limit {limit}.")
