@@ -16,7 +16,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Team Member/Role
 
 * [Karen Snow](https://github.com/karensnow2019) - Business Design, Programmer
-* [Okechukwu Ugwuanyi](https://github.com/okechukwuugwuanyi) - UI Desiner, Programmer
+* [Okechukwu Ugwuanyi](https://github.com/okechukwuugwuanyi) - UI Design, Programmer
 * [Haibo Yan](https://github.com/billyean) - System Design, Programmer
 
 ## Design
