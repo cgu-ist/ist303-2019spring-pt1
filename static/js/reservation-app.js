@@ -31,7 +31,6 @@ var options = {
     time_start: '08:00',
     time_end: '20:00',
     time_split: '15',
-    format12: 'true',
     events_url: '/reservation/new'
 };
 
