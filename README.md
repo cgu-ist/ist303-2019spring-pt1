@@ -16,7 +16,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Team Member/Role
 
 * [Karen Snow](https://github.com/karensnow2019) - Business Design, Programmer
-* [Okechukwu Ugwuanyi](https://github.com/okechukwuugwuanyi) - UI Desiner, Programmer
+* [Okechukwu Ugwuanyi](https://github.com/okechukwuugwuanyi) - UI Design, Programmer
 * [Haibo Yan](https://github.com/billyean) - System Design, Programmer
 
 ## Design
@@ -37,7 +37,7 @@ MiYE provides a reservation page where the clerk can manage customer reservation
 
 MiYE is a python Django web framework application that can be run in Linux/MacOSX/Window. MiYE is using JQuery to provide AJAX support for implementation of the single page application. MiYE is using sqllite3 as local storage, which means MiYE doesn't support multiple user scenarios.
 
-MiYE is a application where an authorized clerk can manage the system and an authorized manager cna edit the system. MiYE provides an initial user creation mechanism to ensure system safety.
+MiYE is a application where an authorized clerk can manage the system and an authorized manager can edit the system. MiYE provides an initial user creation mechanism to ensure system safety.
 
 MiYE is using both Django rest API to manipulate data, data will be transfer between a customer's browser and MiYE asynchronously.
 
