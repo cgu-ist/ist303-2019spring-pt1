@@ -16,24 +16,26 @@ def service_list(request):
     data = dict()
     try:
         if request.method == 'GET':
-            servicelist = [service2Json(x) for x in Service.objects.all()]
+            servicelist = [service2json(x) for x in Service.objects.all()]
             data['services'] = servicelist
         else:
             if request.POST['limit'] == "":
                 service = Service(name=request.POST['name'],
                                   description=request.POST['description'],
-                                  time_type=request.POST['time_type'],
+                                  min_service_time=request.POST['min_service_time'],
+                                  max_service_time=request.POST['max_service_time'],
                                   rate=request.POST['rate'])
             else:
                 service = Service(name=request.POST['name'],
                                   description=request.POST['description'],
-                                  time_type=request.POST['time_type'],
+                                  min_service_time=request.POST['min_service_time'],
+                                  max_service_time=request.POST['max_service_time'],
                                   rate=request.POST['rate'],
                                   limit=request.POST['limit'])
             service.full_clean()
             service.save()
 
-            data['service'] = service2Json(service)
+            data['service'] = service2json(service)
         data['ret'] = 0
     except ValidationError as e:
         data['ret'] = 1
@@ -41,7 +43,7 @@ def service_list(request):
     return JsonResponse(data)
 
 
-def service2Json(service):
+def service2json(service):
     if service.limit == 65535:
         limit = "Unlimited"
     else:
@@ -51,10 +53,12 @@ def service2Json(service):
             'id': service.id,
             'name': service.name,
             'description': service.description,
-            'time_type': service.time_type,
+            'min_service_time': service.min_service_time,
+            'max_service_time': service.max_service_time,
             'rate': service.rate,
             'limit': limit
     }
+
 
 @login_required
 def service_detail(request, service_id):
@@ -67,8 +71,10 @@ def service_detail(request, service_id):
                 service.name = request.POST['name']
             if request.POST['description'] is not None:
                 service.description = request.POST['description']
-            if request.POST['time_type'] is not None:
-                service.time_type = request.POST['time_type']
+            if request.POST['min_service_time'] is not None:
+                service.min_service_time = request.POST['min_service_time']
+            if request.POST['max_service_time'] is not None:
+                service.max_service_time = request.POST['max_service_time']
             if request.POST['rate'] is not None:
                 service.rate = request.POST['rate']
             if request.POST['limit'] is None or request.POST['limit'] == "":
@@ -85,14 +91,7 @@ def service_detail(request, service_id):
         else:
             limit = service.limit
         data['ret'] = 0
-        data['service'] = {
-                'id': service.id,
-                'name': service.name,
-                'description': service.description,
-                'time_type': service.time_type,
-                'rate': service.rate,
-                'limit': limit
-            }
+        data['service'] = service2json(service)
         return JsonResponse(data)
     except ValidationError as e:
         data['ret'] = 1

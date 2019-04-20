@@ -7,12 +7,13 @@ $.ajax({
             let rows =  '';
             data.services.forEach(service => {
                 rows += `<tr id="tr_${service.id}">
-                        <td class="col-3">${service.name}</td>
+                        <td class="col-1">${service.name}</td>
                         <td class="col-3">${service.description}</td>
-                        <td class="col-2">${service.time_type}</td>
+                        <td class="col-1">${service.min_service_time}</td>
+                        <td class="col-1">${service.max_service_time}</td>
                         <td class="col-1"><span>&#36;</span>${service.rate}</td>
-                        <td class="col-1">${service.limit}</td>
-                        <td class="col-2">
+                        <td class="col-2">${service.limit}</td>
+                        <td class="col-3">
                             <button class="btn deleteBtn btn-primary" data-id="${service.id}">Delete</button>
                             <button class="btn updateBtn btn-primary" data-id="${service.id}">Update</button>
                         </td>
@@ -60,8 +61,10 @@ function newService(){
                 <input id="form_name" type="text" class="form-control required" name="name" required="true"><br>
                 <label for="name">Description: </label>
                 <input id="form_description" type="text" class="form-control required" name="description" required="true"><br>
-                <label for="time_type">Time Type: </label>
-                <input id="form_time_type" type="text" class="form-control required" name="time_type" required="true"><br>
+                <label for="min_service_time">Min Time Allow: </label>
+                <input id="form_min_service_time" type="number" class="form-control required" name="time_type" required="true"><br>
+                <label for="max_service_time">Max Time Allow: </label>
+                <input id="form_max_service_time" type="number" class="form-control required" name="time_type" required="true"><br>
                 <label for="rate">Rate:</label>
                 <input id="form_rate" type="text" class="form-control required" name="rate" required="true"><br>
                 <label for="limit">Limit:</label>
@@ -75,13 +78,15 @@ function newService(){
     $('.submitBtn').bind("click", () => {
         let name = $('#form_name').val();
         let description = $('#form_description').val();
-        let time_type = $('#form_time_type').val();
+        let min_service_time = $('#form_min_service_time').val();
+        let max_service_time = $('#form_max_service_time').val();
         let rate = $('#form_rate').val();
         let limit = $('#form_limit').val();
         ajaxNewService({
             'name': name,
             'description': description,
-            'time_type': time_type,
+            'min_service_time': min_service_time,
+            'max_service_time': max_service_time,
             'rate': rate,
             'limit': limit
         })
@@ -98,11 +103,12 @@ function ajaxNewService(service) {
             if (data.ret == 0) {
                 let service = data.service;
                 let row = `<tr id="tr_${service.id}">
-                                <td class="col-3">${service.name}</td>
-                                <td class="col-3">${service.description}</td>
-                                <td class="col-2">${service.time_type}</td>
+                                <td class="col-1">${service.name}</td>
+                                <td class="col-2">${service.description}</td>
+                                <td class="col-2">${service.min_service_time}</td>
+                                <td class="col-2">${service.max_service_time}</td>
                                 <td class="col-1"><span>&#36;</span>${service.rate}</td>
-                                <td class="col-1">${service.limit}</td>
+                                <td class="col-2">${service.limit}</td>
                                 <td class="col-2">
                                     <button class="btn deleteBtn btn-primary" data-id="${service.id}">Delete</button>
                                     <button class="btn updateBtn btn-primary" data-id="${service.id}">Update</button>
@@ -137,8 +143,10 @@ function updateService(el){
                             <input id="form_name" type="text" class="form-control required" name="name" value="${service.name}" required="true"><br>
                             <label for="name">Description: </label>
                             <input id="form_description" type="text" class="form-control required" name="description" value="${service.description}" required="true"><br>
-                            <label for="time_type">Time Type: </label>
-                            <input id="form_time_type" type="text" class="form-control required" name="time_type" value="${service.time_type}" required="true"><br>
+                            <label for="min_service_time">Min Time Allow: </label>
+                            <input id="form_min_service_time" type="number" class="form-control required" name="time_type" value="${service.min_service_time}" required="true"><br>
+                            <label for="max_service_time">Max Time Allow: </label>
+                            <input id="form_max_service_time" type="number" class="form-control required" name="time_type" value="${service.max_service_time}" required="true"><br>
                             <label for="rate">Rate:</label>
                             <input id="form_rate" type="text" class="form-control required" name="rate" value="${service.rate}" required="true"><br>
                             <label for="limit">Limit:</label>
@@ -151,14 +159,16 @@ function updateService(el){
                     let id = $('#form_id').val();
                     let name = $('#form_name').val();
                     let description = $('#form_description').val();
-                    let time_type = $('#form_time_type').val();
+                    let min_service_time = $('#form_min_service_time').val();
+                    let max_service_time = $('#form_max_service_time').val();
                     let rate = $('#form_rate').val();
                     let limit = $('#form_limit').val();
                     ajaxUpdateService({
                         'id': id,
                         'name': name,
                         'description': description,
-                        'time_type': time_type,
+                        'min_service_time': min_service_time,
+                        'max_service_time': max_service_time,
                         'rate': rate,
                         'limit': limit
                     }, el)
@@ -180,12 +190,13 @@ function ajaxUpdateService(service, elm) {
                 let service = data.service;
                 let updatedRowElement = $('#tr_' + service.id);
                 row = `<tr id="tr_${service.id}">
-                    <td class="col-3">${service.name}</td>
+                    <td class="col-1">${service.name}</td>
                     <td class="col-3">${service.description}</td>
-                    <td class="col-2">${service.time_type}</td>
+                    <td class="col-1">${service.min_service_time}</td>
+                    <td class="col-1">${service.max_service_time}</td>
                     <td class="col-1"><span>&#36;</span>${service.rate}</td>
                     <td class="col-2">${service.limit}</td>
-                    <td class="col-2">
+                    <td class="col-3">
                         <button class="btn deleteBtn btn-primary" data-id="${service.id}"">Delete</button>
                         <button class="btn updateBtn btn-primary" data-id="${service.id}"">Update</button>
                      </td>

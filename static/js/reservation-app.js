@@ -30,6 +30,8 @@ var options = {
     show_events_which_fits_time: true,
     time_start: '08:00',
     time_end: '20:00',
+    time_split: '15',
+    format12: 'true',
     events_url: '/reservation/new'
 };
 
@@ -129,8 +131,10 @@ $('#newEventModal').on('show.bs.modal', function (event) {
             if (data.ret == 0) {
                 let time_rows = {}
                 data.services.forEach(service => {
-                    let time = service.time_type.split(",")
-                    time_rows[service.id] = time
+                    const min = service.min_service_time
+                    const max = service.max_service_time
+                    const range = (max - min) / 15 + 1
+                    time_rows[service.id] = [...Array(range).keys()].map(x => x * 15 + min)
                 })
 
                 let rows = data.services.map(service => {
@@ -225,7 +229,6 @@ function deleteReservation(id) {
     },
     dataType:  'json',
         success: function (data) {
-
             if (data.ret == 0) {
                 getEvents();
             } else {
