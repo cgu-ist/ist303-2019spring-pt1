@@ -25,6 +25,6 @@ def validate_int15_multipler(value):
     """
     try:
         if value % 15 != 0:
-            raise ValidationError("value is not a multiplication of 15 ", params={'value': value})
+            raise ValidationError("%(value)s is not a multiplication of 15.", params={'value': value})
     except ValueError:
-        raise ValidationError("value are not integer", params={'value': value})
+        raise ValidationError("%(value)s is are not integer", params={'value': value})

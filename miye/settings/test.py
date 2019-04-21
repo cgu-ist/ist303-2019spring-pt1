@@ -1,3 +1,6 @@
+from .base import *
+
+# SECURITY WARNING: don't run with debug turned on in production!
 """
 Django settings for miye project.
 
@@ -22,8 +25,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'rk=od(6ump^a($le71%3m!@)bwvj(4*rg5pjx^6es&e23kic_t'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'miye.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [(os.path.join(BASE_DIR, 'templates'))],
+        'DIRS': [(os.path.join(BASE_DIR, '../../templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,12 +82,12 @@ WSGI_APPLICATION = 'miye.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
@@ -128,5 +129,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, '../../static'),
 )
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, '../../test.sqlite3'),
+    }
+}
