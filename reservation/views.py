@@ -159,7 +159,8 @@ def dumpJson(reservation_obj):
                 'id': service.id,
                 'name': service.name,
                 'description': service.description,
-                'time_type': service.time_type,
+                'min_service_time': service.min_service_time,
+                'max_service_time': service.max_service_time,
                 'rate': service.rate
             }
     }

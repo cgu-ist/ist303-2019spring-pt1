@@ -7,15 +7,6 @@ var options = {
         if(!events) {
             return;
         }
-        // let list = $('#eventlist');
-        // list.html('');
-        //
-        // $.each(events, function(key, val) {
-        //     $(document.createElement('li'))
-        //         // .html('<a href="' + val.url + '">' + val.title + '</a>')
-        //         .html('<span>' + val.title + '</span><button class="btn deleteBtn btn-primary" data-id="' + val.id + '">Delete</button>')
-        //         .appendTo(list);
-        // });
     },
     onAfterViewLoad: function(view) {
         $('.page-header h3').text(this.getTitle());

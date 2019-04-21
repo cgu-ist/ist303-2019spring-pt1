@@ -406,11 +406,13 @@
 }
 .day-highlight.dh-event-5:hover,
 .day-highlight.dh-event-5 {
+    color: #f7f7f7;
   background-color: rgba(115, 115, 115, 0.3);
   width: 200px;
 }
 .day-highlight.dh-event-6:hover,
 .day-highlight.dh-event-6 {
+  color: #f7f7f7;
   background-color: rgba(94, 68, 108, 0.3);
   width: 200px;
 }
@@ -421,12 +423,14 @@
 }
 .day-highlight.dh-event-8:hover,
 .day-highlight.dh-event-8 {
-  background-color: orange;
+  color: #f7f7f7;
+  background-color: rgba(42, 79, 138, 0.3);
   width: 200px;
 }
 .day-highlight.dh-event-9:hover,
 .day-highlight.dh-event-9 {
-  background-color: rgb(192, 192, 16, 0.3);
+  color: #f7f7f7;
+  background-color: rgba(49, 140, 140, 0.3);
   width: 200px;
 }
 .day-highlight.dh-event-10:hover,
