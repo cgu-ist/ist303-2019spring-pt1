@@ -98,6 +98,19 @@ Go to [http://localhost:8000](http://localhost:8000)
 gunicorn miye.wsgi:application --bind 0.0.0.0:8000 --workers 3
 ```
 
+### Test
+
+Run pytest
+
+```python
+python -m pytest
+```
+
+Run pytest with coverage
+```python
+python -m pytest --cov=administration --cov=report --cov-reservation
+```
+
 ### Docker
 
 Miye can be run as a docker image, which makes the depolyment process extremely easy.
