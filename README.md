@@ -41,6 +41,14 @@ MiYE is a application where an authorized clerk can manage the system and an aut
 
 MiYE is using both Django rest API to manipulate data, data will be transfer between a customer's browser and MiYE asynchronously.
 
+### Application setting
+
+Django application supports settings for different stage for the product, MiYE supports following environment. By default, MiYE is using development environment setting. 
+
+* [X] [Development](miye/settings/dev.py)
+* [X] [Test](miye/settings/test.py)
+* [X] [Production](miye/settings/prod.py)
+
 ## Application Preparation
 
 ### Start you local environment
@@ -124,7 +132,16 @@ $ docker run -p 8000:8000 -i -t miye_image
 
 ## Page Overview
 
+### Milestone 1
+
 * [X] Login/Logout
 * [X] Service administration
 * [X] Customer administration
-* [ ] Reservation
+* [X] Reservation
+* [X] Billing
+
+### Milestone 2
+* [X] Permission control on staff/superuser
+* [X] Allocation - COR
+* [X] 15 minutes on reservation time - COR
+
