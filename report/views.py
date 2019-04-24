@@ -58,14 +58,51 @@ def allocation_summary(request):
 
     try:
         if request.method == 'POST':
-            end_date = request.POST['end_date']
             customer = Customer.objects.get(id=int(request.POST['customer_id']))
-            occupied = Reservation.objects.filter(date__lte=end_date)\
-                .filter(Q(customer_id__exact=customer.id, reservation_service__name__exact='')
-                        | ~Q(reservation_service__name__exact=''))
+            tomorrow = datetime.datetime.today().date() + datetime.timedelta(days=1)
+            end_date = datetime.datetime.strptime(request.POST['end_date'], '%Y-%m-%d').date()
 
+            occupied = Reservation.objects.order_by('reservation_service', 'date', 'start_time')\
+                .filter(date__gte=tomorrow).filter(date__lte=end_date)\
+                .filter(Q(customer_id__exact=customer.id, reservation_service__name__exact='Mineral baths')
+                        | ~Q(reservation_service__name__exact='Mineral baths'))
+
+            occupied_dict = {}
+            for r in occupied:
+                service_name = r.reservation_service.name
+                if service_name in occupied_dict:
+                    occupied_dict[service_name].append(r)
+                else:
+                    occupied_dict[service_name] = [r]
+
+            data = {k: occupied_dict(k) for k in occupied_dict}
         data['ret'] = 0
     except ValidationError as e:
         data['ret'] = 1
         data['message'] = str(e)
     return JsonResponse(data)
+
+
+@login_required
+def cal_allocation(start, end, occupied_list):
+    allocation_list = []
+    d = start
+    c = 0
+    while d <= end:
+        start_of_day = d + datetime.timedelta(hours=8)
+        end_of_day = d + datetime.timedelta(hours=20)
+        if len(occupied_list) <= c or start < occupied_list[c].date:
+            allocation_list.append((start_of_day, end_of_day))
+        else:
+            current_time = start_of_day
+            while current_time < end_of_day:
+                if len(occupied_list) == c and current_time < end_of_day:
+                    allocation_list.append((current_time, end_of_day))
+                    current_time = end_of_day
+                else:
+                    if len(occupied_list) <= c and current_time < occupied_list[c].start_time:
+                        allocation_list.append((current_time, occupied_list[c].start_time))
+                    current_time = occupied_list[c].end_time
+                    c += 1
+        d = d + datetime.timedelta(days=1)
+    return allocation_list

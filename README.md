@@ -33,6 +33,12 @@ MiYE has two administration pages that provide customers' management and service
 
 MiYE provides a reservation page where the clerk can manage customer reservations and also query customer reservations by given condition
 
+### Report
+
+MiYE has the page to let customer to check the money they own and the reservations they made also the cancelled reservation.
+
+MiYE also allow customer to look for the allocation before certain date that he can make an reservation.
+
 ### Architecture
 
 MiYE is a python Django web framework application that can be run in Linux/MacOSX/Window. MiYE is using JQuery to provide AJAX support for implementation of the single page application. MiYE is using sqllite3 as local storage, which means MiYE doesn't support multiple user scenarios.
