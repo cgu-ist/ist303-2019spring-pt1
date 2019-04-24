@@ -122,7 +122,7 @@ python -m pytest
 
 Run pytest with coverage
 ```python
-python -m pytest --cov=administration --cov=report --cov-reservation
+python -m pytest --cov=administration --cov=report --cov=reservation
 ```
 
 ### Docker
