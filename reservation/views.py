@@ -106,6 +106,7 @@ def new_reservation(request):
             validate_past_time(reservation_obj)
             validate_self(reservation_obj)
             validate_other(reservation_obj)
+            validate_checked_in(customer)
             reservation_obj.save()
         data['ret'] = 0
     except ValidationError as e:
@@ -203,6 +204,11 @@ def validate_other(validating):
             raise ValidationError(f"Reservation numbers at the {check_time} is beyond limit {limit}.")
         check_date_time += datetime.timedelta(minutes=30)
 
+
+def validate_checked_in(customer):
+    current_gmt_time = datetime.datetime.now()
+    if customer.check_in_time is None or (current_gmt_time - customer.check_in_time) > datetime.timedelta(hours=12):
+        raise ValidationError(f"Can't make reservation when customer is not checked in.")
 
 def current_time():
     return datetime.datetime.now() + datetime.timedelta(hours=-7)

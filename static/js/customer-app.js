@@ -7,13 +7,14 @@ $.ajax({
             let rows =  '';
             data.customers.forEach(customer => {
                 rows += `<tr id="tr_${customer.id}">
-                        <td class="col-1">${customer.first_name} ${customer.last_name}</td>
+                        <td class="col-2">${customer.first_name} ${customer.last_name}</td>
                         <td class="col-3">${customer.gender}</td>
                         <td class="col-1">${customer.email}</td>
-                        <td class="col-1">${customer.tel}</td>
-                        <td class="col-3">
+                        <td class="col-2">${customer.tel}</td>
+                        <td class="col-4">
                             <button class="btn deleteBtn btn-primary" data-id="${customer.id}">Delete</button>
                             <button class="btn updateBtn btn-primary" data-id="${customer.id}">Update</button>
+                            <button class="btn checkInBtn btn-primary" data-id="${customer.id}">Check-In</button>
                         </td>
                     </tr>`;
             });
@@ -37,6 +38,11 @@ function bindBtn() {
             updateCustomer($(elm))
         })
     })
+    $('.checkInBtn').each((i, elm) => {
+        $(elm).on("click",  (e) => {
+            checkInCustomer($(elm))
+        })
+    })
 }
 
 function deleteCustomer(el){
@@ -47,6 +53,18 @@ function deleteCustomer(el){
         dataType:  'json',
         success:  function (data) {
             $(el).parents()[1].remove()
+        }
+    });
+}
+
+function checkInCustomer(el){
+    let customerId  =  $(el).data('id')
+    $.ajax({
+        url:  `/customer/checkin/${customerId}`,
+        type:  'post',
+        dataType:  'json',
+        success:  function (data) {
+            console.log("Checked In")
         }
     });
 }

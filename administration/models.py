@@ -16,7 +16,6 @@ class Service(models.Model):
     id = AutoField
     name = CharField(max_length=255, unique=True)
     description = CharField(max_length=255)
-    # time_type = CharField(max_length=255, validators=[validate_int15_list])
     min_service_time = PositiveIntegerField(validators=[validate_int15_multipler])
     max_service_time = PositiveIntegerField(validators=[validate_int15_multipler])
     rate = DecimalField(blank=False, null=False, decimal_places=2, max_digits=5, validators=[DecimalField])
@@ -47,6 +46,7 @@ class Customer(models.Model):
     active = BooleanField(default=True)
     tel = CharField(max_length=13, default=True)
     email = EmailField(null=True)
+    check_in_time = DateTimeField(null=True)
     create_time = DateTimeField(auto_now_add=True)
     update_time = DateTimeField(auto_now=True)
 

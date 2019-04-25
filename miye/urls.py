@@ -35,6 +35,7 @@ urlpatterns = [
     path('customer', administration_views.customer_base, name='customer_main'),
     path('customer/list', administration_views.customer_list, name="customer_list"),
     path('customer/<int:customer_id>', administration_views.customer_detail, name="customer_detail"),
+    path('customer/checkin/<int:customer_id>', administration_views.customer_check_in, name="customer_check_in"),
     path('reservations', reservation_views.reservations, name='reservations_main'),
     path('reservation/new', reservation_views.new_reservation, name='new_reservation'),
     path('reservation/delete', reservation_views.cancel_reservation, name='delete_reservation'),

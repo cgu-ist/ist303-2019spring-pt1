@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import (Service, Customer)
 from django.http import JsonResponse
 from django.core.exceptions import ValidationError
+from datetime import datetime
 
 
 # Create your views here.
@@ -172,3 +173,28 @@ def customer_detail(request, customer_id):
         data['message'] = str(e)
     return JsonResponse(data)
 
+
+@login_required
+def customer_check_in(request, customer_id):
+    data = dict()
+    try:
+        customer = Customer.actives.get(id=customer_id)
+
+        customer.check_in_time = datetime.now()
+        customer.full_clean()
+        customer.save()
+
+        data['ret'] = 0
+        data['customer'] = {
+                'id': customer.id,
+                'first_name': customer.first_name,
+                'last_name': customer.last_name,
+                'gender': customer.gender,
+                'email': customer.email,
+                'tel': customer.tel
+            }
+        return JsonResponse(data)
+    except ValidationError as e:
+        data['ret'] = 1
+        data['message'] = str(e)
+    return JsonResponse(data)
