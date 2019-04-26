@@ -29,7 +29,7 @@ function get_allocations() {
         dataType:  'json',
         success: function  (data) {
             if (data.ret == 0) {
-                $('#billDiv').empty();
+                $('#allocationDiv').empty();
                 let summary = `<div class="'container">
                             <div class="row">
                                 <table  class="table table-sm table-striped table-hover"  id="billingTable">
@@ -53,7 +53,7 @@ function get_allocations() {
                         </table>
                     </div>
                 </div>`;
-                $('#billDiv').append(summary);
+                $('#allocationDiv').append(summary);
             } else {
 
             }
