@@ -15,12 +15,21 @@
     </style>
 {% endblock %}
 
-{% block title %} About {% endblock %}
+{% block title %} Who are we {% endblock %}
 
 {% block main %}
-<div class="col-sm-8">
-    <p>MiYE(Mud in Your Eye) - a new, small hot spring health spa, located in a remote, scenic part of the US. The software must support the spa’s front desk clerks in managing service reservations and statements of service usage for customers.</p>
-</div>
+            <div class="col-sm-8">
+                <p>MiYE(Mud in Your Eye) - a new, small hot spring health spa, located in a remote, scenic part of the US. The software must support the spa’s front desk clerks in managing service reservations and statements of service usage for customers.</p>
+            </div>
+            <div class="col-sm-4">
+                <img src="{% static 'img/massage-small.jpg' %}" style="width: 100%; height: auto;">
+            </div>
+            <div style="padding: 10px 4px 10px 2px;">
+                <span style="font-size: 2em; font-weight: bold">Mineral bath</span> are spa resorts developed around naturally occurring mineral springs. Like seaside resorts, they are mainly used recreationally although they also figured prominently in prescientific medicine.
+            </div>
+            <div>
+                <img src="{% static 'img/massage.jpg' %}" style="width: 100%; height: auto;">
+            </div>
 {% endblock %}
 
 {% block extrajs %}
