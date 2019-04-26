@@ -23,11 +23,10 @@
                 <li class="active"><a href="home">Home <span class="sr-only">(current)</span></a></li>
                 {% if user.is_superuser %}
                     <li><a href="service">Service</a></li>
-                    <li><a href="customer">Customer</a></li>
                 {% else %}
                     <li class="disabled"><a>Service</a></li>
-                    <li class="disabled"><a>Customer</a></li>
                 {% endif %}
+                <li><a href="customer">Customer</a></li>
                 <li><a href="reservation">Reservation</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Report<span class="caret"></span></a>

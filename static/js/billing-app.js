@@ -37,17 +37,17 @@ function get_billing() {
                         <div class="col-sm-2">Customer : </div>
                         <div class="col-sm-4">${data.customer_name}</div>
                         <div class="col-sm-2">Total Due : </div>
-                        <div class="col-sm-4"><span class="dollar">${data.total}</span><</div>
+                        <div class="col-sm-4"><span class="dollar">${data.total}</span></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-2">Start : </div>
                         <div class="col-sm-4">${data.start}</div>
                         <div class="col-sm-2">End : </div>
-                        <div class="col-sm-4">${data.end}<</div>
+                        <div class="col-sm-4">${data.end}</div>
                     </div>
                 `;
                 summary += `<div class="row">
-                                <table  class="table table-sm table-striped table-hover"  id="billingTable">
+                                <table  class="table table-sm table-hover"  id="billingTable">
                                     <thead class="thead-dark">
                                         <th class="col-2 text-left">Service</th>
                                         <th class="col-2 text-left">Service Date</th>

@@ -1,11 +1,9 @@
 .hiddendiv {
     visibility: visible;
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-left: 20px;
+    padding: 20px 2px;
     border: 1px dot-dash black;
     background-color: #2b669a;
-    color: #151515;
+    color: #d3d3d3;
 }
 
 .hiddendiv:empty{

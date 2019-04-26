@@ -5,37 +5,34 @@
 {% block title %}Billing Information{% endblock %}
 
 {% block main %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 form-group">
-                <label for="form_startdate">Search Start Date : </label>
-                <input type='text' class="form-control" name="form_startdate" id="form_startdate" placeholder="Start Date">
-            </div>
-            <div class="col-sm-6 form-group">
-                <label for="form_enddate">Search End  Date : </label>
-                <input type='text' class="form-control" name="form_enddate" id="form_enddate"  placeholder="End Date">
-            </div>
+
+    <div class="row">
+        <div class="col-sm-6 form-group">
+            <label for="form_startdate">Search Start Date : </label>
+            <input type='text' class="form-control" name="form_startdate" id="form_startdate" placeholder="Start Date">
         </div>
-        <div class="row">
-            <div class="col-sm-12 form-group">
-                <label>Please select customer:  </label>
-                <select id="form_customer" class="form-control" name="customerSelect"></select>
-            </div>
+        <div class="col-sm-6 form-group">
+            <label for="form_enddate">Search End  Date : </label>
+            <input type='text' class="form-control" name="form_enddate" id="form_enddate"  placeholder="End Date">
         </div>
-        <div class="row">
-            <div class="col-sm-3 form-group">
-                <button id="btnQuery" class="btn btn-primary btn-md col-sm-12"  onclick="get_billing()">Search</button>
-            </div>
-            <div class="col-sm-3 form-group">
-                <button id="btnPrint" class="btn btn-secondary btn-md col-sm-12"  onclick="print_billing()" disabled>Print</button>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 form-group">
+            <label>Please select customer:  </label>
+            <select id="form_customer" class="form-control" name="customerSelect"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 form-group">
+            <button id="btnQuery" class="btn btn-primary btn-md col-sm-12"  onclick="get_billing()">Search</button>
+        </div>
+        <div class="col-sm-3 form-group">
+            <button id="btnPrint" class="btn btn-secondary btn-md col-sm-12"  onclick="print_billing()" disabled>Print</button>
         </div>
     </div>
 
-    <div class="container">
-        <div class="hiddendiv col-sm-12" id="billDiv" style="border: 1px dot-dash black;"></div>
-    </div>
 
+    <div class="hiddendiv" id="billDiv"></div>
 
 {% endblock %}
 

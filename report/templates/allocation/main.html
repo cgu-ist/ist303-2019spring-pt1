@@ -5,26 +5,23 @@
 {% block title %}Personal Allocation{% endblock %}
 
 {% block main %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 form-group">
-                <label>Please Select Customer:  </label>
-                <select id="form_customer" class="form-control" name="customerSelect"></select>
-            </div>
-            <div class="col-sm-6 form-group">
-                <label for="form_enddate">Select Date Before : </label>
-                <input type='text' class="form-control" name="form_enddate" id="form_enddate"  placeholder="End Date">
-            </div>
+    <div class="row">
+        <div class="col-sm-6 form-group">
+            <label>Please Select Customer:  </label>
+            <select id="form_customer" class="form-control" name="customerSelect"></select>
         </div>
-        <div class="row">
-            <div class="form-group">
-                <button id="btnQuery" class="btn btn-primary btn-md col-sm-4"  onclick="get_allocations()">Search</button>
-            </div>
+        <div class="col-sm-6 form-group">
+            <label for="form_enddate">Select Date Before : </label>
+            <input type='text' class="form-control" name="form_enddate" id="form_enddate"  placeholder="End Date">
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <button id="btnQuery" class="btn btn-primary btn-md col-sm-4"  onclick="get_allocations()">Search</button>
         </div>
     </div>
 
-    <div class="hiddendiv" id="allocationDiv">
-    </div>
+    <div class="hiddendiv" id="allocationDiv"/>
 {% endblock %}
 
 {% block extrajs %}
