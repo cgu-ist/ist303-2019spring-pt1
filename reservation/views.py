@@ -6,6 +6,7 @@ from django.views.generic.base import TemplateView
 from reservation.models import Reservation
 from administration.models import Customer
 from administration.models import Service
+import pytz
 import datetime
 
 
@@ -207,11 +208,10 @@ def validate_other(validating):
 
 def validate_checked_in(customer):
     current_gmt_time = datetime.datetime.now()
-    if customer.check_in_time is None or (current_gmt_time - customer.check_in_time) > datetime.timedelta(hours=12):
+    utc = pytz.UTC
+    if customer.check_in_time is None or customer.check_in_time + datetime.timedelta(hours=12) < utc.localize(current_gmt_time):
         raise ValidationError(f"Can't make reservation when customer is not checked in.")
+
 
 def current_time():
     return datetime.datetime.now() + datetime.timedelta(hours=-7)
-
-
-
