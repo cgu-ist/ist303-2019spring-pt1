@@ -21,12 +21,13 @@
         </div>
     </div>
 
-    <div class="hiddendiv" id="allocationDiv"/>
+    <div class="hiddendiv row" id="allocationDiv"/>
 {% endblock %}
 
 {% block extrajs %}
 <script  src="{% static 'js/allocation-app.js' %}"></script>
 <script  src="{% static 'js/jquery-ui.js' %}"></script>
+<script  src="{% static 'js/moment.min.js' %}"></script>
 <script type="text/javascript">
     $(function () {
         $('#form_enddate').datepicker({"dateFormat": "yy-mm-dd"} );

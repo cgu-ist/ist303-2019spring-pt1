@@ -153,7 +153,7 @@ def dumpJson(reservation_obj):
             },
             'datetime_start_ms': start_datetime.strftime('%s') + '000',
             'datetime_end_ms': end_datetime.strftime('%s') + '000',
-            'date' : reservation_obj.date,
+            'date': reservation_obj.date,
             'start_time': reservation_obj.start_time,
             'period': period,
             'amount': amount,

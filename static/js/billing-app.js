@@ -32,21 +32,17 @@ function get_billing() {
         success: function  (data) {
             if (data.ret == 0) {
                 $('#billDiv').empty();
-                let summary = `<div class="'container"><div class="row"><h2>Billing Summary</h2></div>
-                    <div class="row">
+                let summary = `<h2 style="margin: 10px;">Billing Summary</h2></div>
                         <div class="col-sm-2">Customer : </div>
                         <div class="col-sm-4">${data.customer_name}</div>
                         <div class="col-sm-2">Total Due : </div>
                         <div class="col-sm-4"><span class="dollar">${data.total}</span></div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-2">Start : </div>
                         <div class="col-sm-4">${data.start}</div>
                         <div class="col-sm-2">End : </div>
                         <div class="col-sm-4">${data.end}</div>
-                    </div>
                 `;
-                summary += `<div class="row">
+                summary += `<div class="col-sm-12">
                                 <table  class="table table-sm table-hover"  id="billingTable">
                                     <thead class="thead-dark">
                                         <th class="col-2 text-left">Service</th>
@@ -69,30 +65,31 @@ function get_billing() {
                 });
                 summary += `</tbody>
                         </table>
-                    </div>
-                </div>`;
+                `;
 
                 $('#billDiv').append(summary);
 
-                let cancelled = `<h2 class="col-sm-12" style="margin-top: 10px;">Cancelled Reservations</h2>`;
-                cancelled += `<table  class="table table-sm table-striped table-hover"  id="billingTable">
-                        <thead class="thead-dark">
-                            <th class="col-2 text-left">Service</th>
-                            <th class="col-2 text-left">Service Date</th>
-                            <th class="col-2 text-left">Start Time</th>
-                            <th class="col-2 text-left">Service Time</th>
-                        </thead>
-                        <tbody>`;
-                data.cancelled_reservations.forEach(reservation => {
-                    cancelled += `<tr>
-                        <td>${reservation.reservation_service.name}</td>
-                        <td>${reservation.date}</td>
-                        <td>${reservation.start_time}</td>
-                        <td>${reservation.period} minutes</td>
-                        </tr>`;
-                });
-                cancelled += `</tbody></table>`;
-                $('#billDiv').append(cancelled);
+                if (data.cancelled_reservations.length > 0) {
+                    let cancelled = `<h2 style="margin:10px;">Cancelled Reservations</h2>`;
+                    cancelled += `<div class="col-sm-12"><table class="table table-sm table-hover"  id="billingTable">
+                            <thead class="thead-dark">
+                                <th class="col-sm-3 text-left">Service</th>
+                                <th class="col-sm-3 text-left">Service Date</th>
+                                <th class="col-sm-3 text-left">Start Time</th>
+                                <th class="col-sm-3 text-left">Service Time</th>
+                            </thead>
+                            <tbody>`;
+                    data.cancelled_reservations.forEach(reservation => {
+                        cancelled += `<tr>
+                            <td>${reservation.reservation_service.name}</td>
+                            <td>${reservation.date}</td>
+                            <td>${reservation.start_time}</td>
+                            <td>${reservation.period} minutes</td>
+                            </tr>`;
+                    });
+                    cancelled += `</tbody></table></div>`;
+                    $('#billDiv').append(cancelled);
+                }
 
                 $('#btnPrint').removeClass('btn-secondary');
                 $('#btnPrint').addClass('btn-primary');

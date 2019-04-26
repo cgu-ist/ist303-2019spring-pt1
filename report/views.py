@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from django.shortcuts import render
 from reservation.models import Reservation
-from administration.models import Customer
+from administration.models import Customer, Service
 from reservation.views import dumpJson
 from datetime import datetime, timedelta, time
 from decimal import *
@@ -59,11 +59,12 @@ def allocation_summary(request):
     try:
         if request.method == 'POST':
             customer = Customer.objects.get(id=int(request.POST['customer_id']))
-            tomorrow = datetime.today().date() + timedelta(days=1)
+            services = Service.objects.all()
+            today = datetime.today().date()
             end_date = datetime.strptime(request.POST['end'], '%Y-%m-%d').date()
 
             occupied = Reservation.objects.order_by('reservation_service', 'date', 'start_time')\
-                .filter(date__gte=tomorrow).filter(date__lte=end_date)\
+                .filter(date__gte=today).filter(date__lte=end_date)\
                 .filter(Q(customer_id__exact=customer.id, reservation_service__name__exact='Mineral baths')
                         | ~Q(reservation_service__name__exact='Mineral baths'))
 
@@ -75,7 +76,13 @@ def allocation_summary(request):
                 else:
                     occupied_dict[service_name] = [r]
 
-            allocations = {k: cal_allocation(tomorrow, end_date, v) for k, v in occupied_dict.items()}
+            allocations = {k: allocation_array(today, end_date, v) for k, v in occupied_dict.items()}
+
+            for service in services:
+                if service.name not in allocations:
+                    allocations[service.name] = allocation_array(today, end_date, [])
+            data['start'] = today
+            data['end'] = end_date
             data['allocations'] = allocations
         data['ret'] = 0
     except ValidationError as e:
@@ -100,9 +107,36 @@ def cal_allocation(start, end, occupied_list):
                     allocation_list.append({'start': current_time, 'end': end_of_day})
                     current_time = end_of_day
                 else:
-                    if len(occupied_list) > c and current_time < datetime.combine(occupied_list[c].date, occupied_list[c].start_time):
-                        allocation_list.append({'start': current_time, 'end': datetime.combine(occupied_list[c].date, occupied_list[c].start_time)})
+                    if len(occupied_list) > c and current_time < \
+                            datetime.combine(occupied_list[c].date, occupied_list[c].start_time):
+                        allocation_list.append({'start': current_time,
+                                                'end': datetime.combine(occupied_list[c].date,
+                                                                        occupied_list[c].start_time)})
                     current_time = datetime.combine(occupied_list[c].date, occupied_list[c].end_time)
                     c += 1
         d = d + timedelta(days=1)
+    return allocation_list
+
+
+def allocation_array(start, end, occupied_list):
+    allocation_list = []
+    d = start
+    c = 0
+    while d <= end:
+        dl = []
+        start_of_day = datetime.combine(d, time(8, 0))
+        end_of_day = datetime.combine(d, time(20, 0))
+        ct = start_of_day
+        while ct < end_of_day:
+            if len(occupied_list) == c or ct < datetime.combine(occupied_list[c].date, occupied_list[c].start_time):
+                dl.append(1)
+            else:
+                dl.append(0)
+
+            ct += timedelta(minutes=15)
+            if len(occupied_list) > c and ct >= datetime.combine(occupied_list[c].date, occupied_list[c].end_time):
+                c += 1
+        allocation_list.append(dl)
+        d += timedelta(days=1)
+
     return allocation_list

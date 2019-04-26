@@ -1,6 +1,6 @@
 .hiddendiv {
     visibility: visible;
-    padding: 20px 2px;
+    margin: 10px 2px;
     border: 1px dot-dash black;
     background-color: #2b669a;
     color: #d3d3d3;
@@ -8,6 +8,10 @@
 
 .hiddendiv:empty{
     visibility: hidden;
+}
+
+.resultdiv {
+    margin: 10px 10px;
 }
 
 .forminput {
@@ -30,4 +34,94 @@
     cursor: not-allowed;
     pointer-events: none;
     text-decoration: none;
+}
+
+.unavailable {
+    display: inline-block;
+    margin: 1px;
+    background-color: #ff8c00;
+    min-width: 1.9%;
+    height: 20px;
+    box-shadow: 1px 1px grey;
+}
+
+.available {
+    display: inline-block;
+    margin: 1px;
+    background-color: #d3d3d3;
+    min-width: 1.9%;
+    height: 20px;
+}
+
+.past {
+    display: inline-block;
+    margin: 1px;
+    background-color: #0f0f0f;
+    min-width: 1.9%;
+    height: 20px;
+}
+
+.unavailable-block {
+    display: inline-block;
+    margin: 1px;
+    background-color: #ff8c00;
+    min-width: 20px;
+    height: 20px;
+}
+
+.available-block {
+    display: inline-block;
+    margin: 1px;
+    background-color: #d3d3d3;
+    min-width: 20px;
+    height: 20px;
+}
+
+.past-block {
+    display: inline-block;
+    margin: 1px;
+    background-color: #0f0f0f;
+    min-width: 20px;
+    height: 20px;
+}
+
+/* Tooltip text */
+.unavailable .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  top: 100%;
+  margin-left: -60px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.unavailable:hover .tooltiptext {
+  visibility: visible;
+}
+
+.available .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  top: 100%;
+  margin-left: -60px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.available:hover .tooltiptext {
+  visibility: visible;
 }
