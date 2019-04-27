@@ -324,11 +324,71 @@
   border-radius: 8px;
   border: 1px solid #ffffff;
 }
+.event {
+  display: block;
+  background-color: #c3c3c3;
+  width: 20px;
+  height: 20px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+}
 .event-block {
   display: block;
   background-color: #c3c3c3;
   width: 20px;
   height: 100%;
+}
+.event-mineral-baths {
+  display: block;
+  background-image: url("mineral-baths.jpg");
+  width: 28px;
+  height: 28px;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+}
+.event-massage-services {
+  display: block;
+  background-image: url("massage-services.jpg");
+  width: 28px;
+  height: 28px;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+}
+.event-facial-services {
+  display: block;
+  background-image: url("facial-services.jpg");
+  width: 28px;
+  height: 28px;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+}
+.event-specialty-treatment-services {
+  display: block;
+  background-image: url("specialty-treatment-services.jpg");
+  width: 28px;
+  height: 28px;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  border: 1px solid #ffffff;
 }
 .cal-event-list .event.pull-left {
   margin-top: 3px;

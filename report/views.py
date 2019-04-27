@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from reservation.models import Reservation
 from administration.models import Customer, Service
-from reservation.views import dumpJson
+from reservation.views import dump_json
 from datetime import datetime, timedelta, time
 from decimal import *
 from django.db.models import Q
@@ -38,8 +38,8 @@ def billing_summary(request):
             data["start"] = start
             data["end"] = end
             data["total"] = total
-            data['reservations'] = [dumpJson(r) for r in unpaid_reservations]
-            data['cancelled_reservations'] = [dumpJson(r) for r in cancelled_reservations]
+            data['reservations'] = [dump_json(r) for r in unpaid_reservations]
+            data['cancelled_reservations'] = [dump_json(r) for r in cancelled_reservations]
         data['ret'] = 0
     except ValidationError as e:
         data['ret'] = 1

@@ -6,8 +6,9 @@
                 let event_time = new Date();
                 event_time.setTime(event.start);
             %>
-				<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>" data-event-class="<%= event['class'] %>"
-					class="pull-left event <%= event['class'] %>" data-toggle="tooltip"
+				<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
+                    data-event-class="<%= event.title.toLowerCase().split(' ').join('-') %>"
+					class="pull-left event-<%= event.title.toLowerCase().split(' ').join('-') %>" data-toggle="tooltip"
 					title="<%=  event_time.getHours() + ':' + ('0' + event_time.getMinutes()).slice(-2) + ' ' + event.person + ' - ' + event.title %>"></a>
 			<% }); %>
 		</div>

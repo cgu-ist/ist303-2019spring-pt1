@@ -6,8 +6,8 @@ from django.views.generic.base import TemplateView
 from reservation.models import Reservation
 from administration.models import Customer
 from administration.models import Service
-import pytz
-import datetime
+from pytz import UTC
+from datetime import datetime, timedelta
 
 
 # Create your views here.
@@ -62,19 +62,19 @@ def reservations(request):
     try:
         if request.method == 'GET':
             valid_reservations = Reservation.objects.filter(date__gte=current_time().date()).filter(status__exact='N')
-            data['reservations'] = [dumpJson(r) for r in valid_reservations]
+            data['reservations'] = [dump_json(r) for r in valid_reservations]
         else:
             customer = Customer.objects.filter(id == request.POST['customer_id'])
             reservation_service = Service.objects.filter(id == request.POST['service_id'])
             reservation_length = request.POST['reservation_length']
-            reservation_date_time = datetime.datetime.strptime(request.POST['reservation_time'], '%Y-%m-%d %H:%M')
+            reservation_date_time = datetime.strptime(request.POST['reservation_time'], '%Y-%m-%d %H:%M')
             reservation_obj = Reservation(customer=customer,
                                           reservation_date_time=reservation_date_time,
                                           reservation_length=reservation_length,
                                           reservation_service=reservation_service)
             reservation_obj.save()
 
-            data['service'] = dumpJson(reservation_obj)
+            data['service'] = dump_json(reservation_obj)
         data['ret'] = 0
     except ValidationError as e:
         data['ret'] = 1
@@ -90,10 +90,10 @@ def new_reservation(request):
             customer = Customer.objects.get(id=request.POST['customer_id'])
             reservation_service = Service.objects.get(id=request.POST['service_id'])
             reservation_length = int(request.POST['reservation_length'])
-            start_datetime = datetime.datetime.strptime(request.POST['reservation_date'] + ' '
+            start_datetime = datetime.strptime(request.POST['reservation_date'] + ' '
                                                         + request.POST['reservation_time']
                                                         , '%Y-%m-%d %H:%M')
-            end_datetime = start_datetime + datetime.timedelta(minutes=reservation_length)
+            end_datetime = start_datetime + timedelta(minutes=reservation_length)
 
             date = start_datetime.date()
             start_time = start_datetime.time()
@@ -132,15 +132,15 @@ def cancel_reservation(request):
     return JsonResponse(data)
 
 
-def dumpJson(reservation_obj):
+def dump_json(reservation_obj):
     customer = reservation_obj.customer
     service = reservation_obj.reservation_service
     date = reservation_obj.date
     start_time = reservation_obj.start_time
     end_time = reservation_obj.end_time
 
-    start_datetime = datetime.datetime.combine(date, start_time) + datetime.timedelta(hours=7)
-    end_datetime = datetime.datetime.combine(date, end_time) + datetime.timedelta(hours=7)
+    start_datetime = datetime.combine(date, start_time) + timedelta(hours=7)
+    end_datetime = datetime.combine(date, end_time) + timedelta(hours=7)
     period = int((end_datetime - start_datetime).total_seconds() / 60)
     amount = period * service.rate
 
@@ -168,16 +168,16 @@ def dumpJson(reservation_obj):
     }
 
 
-def validate_cancel(reservation):
-    reservation_datetime = datetime.datetime.combine(reservation.date, reservation.start_time)
+def validate_cancel(validating):
+    reservation_datetime = datetime.combine(validating.date, validating.start_time)
     if reservation_datetime < current_time():
         raise ValidationError(f"You are not supposed to cancel a stated reservation.")
-    if reservation_datetime - current_time() <= datetime.timedelta(minutes=10):
+    if reservation_datetime - current_time() <= timedelta(minutes=10):
         raise ValidationError(f"You can't cancel the reservation now service will be started within 10 minutes.")
 
 
 def validate_past_time(validating):
-    if datetime.datetime.combine(validating.date, validating.start_time) <= current_time():
+    if datetime.combine(validating.date, validating.start_time) <= current_time():
         raise ValidationError(f"Can't make reservation in the past.")
 
 
@@ -194,8 +194,8 @@ def validate_self(validating):
 def validate_other(validating):
     limit = validating.reservation_service.limit
 
-    check_date_time = datetime.datetime.combine(validating.date, validating.start_time)
-    check_end_time = datetime.datetime.combine(validating.date, validating.end_time)
+    check_date_time = datetime.combine(validating.date, validating.start_time)
+    check_end_time = datetime.combine(validating.date, validating.end_time)
 
     while check_date_time < check_end_time:
         check_time = check_date_time.time()
@@ -203,15 +203,15 @@ def validate_other(validating):
             date=validating.date).filter(start_time__lte=check_time).filter(end_time__gt=check_time)
         if overlap.count() >= limit:
             raise ValidationError(f"Reservation numbers at the {check_time} is beyond limit {limit}.")
-        check_date_time += datetime.timedelta(minutes=30)
+        check_date_time += timedelta(minutes=30)
 
 
 def validate_checked_in(customer):
-    current_gmt_time = datetime.datetime.now()
-    utc = pytz.UTC
-    if customer.check_in_time is None or customer.check_in_time + datetime.timedelta(hours=12) < utc.localize(current_gmt_time):
+    current_gmt_time = datetime.now()
+    if customer.check_in_time is None or customer.check_in_time + timedelta(hours=12) \
+            < UTC.localize(current_gmt_time):
         raise ValidationError(f"Can't make reservation when customer is not checked in.")
 
 
 def current_time():
-    return datetime.datetime.now() + datetime.timedelta(hours=-7)
+    return datetime.now() + timedelta(hours=-7)
