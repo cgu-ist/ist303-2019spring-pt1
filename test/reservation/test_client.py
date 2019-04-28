@@ -27,7 +27,6 @@ def test_service_create(admin_client):
     s1 = Service.objects.create(name='Mineral baths', description='Mineral baths', min_service_time=15,
                                 max_service_time=60, rate=2.50, limit=65535)
 
-
     data = {
         'customer_id': c1.id,
         'service_id': s1.id,

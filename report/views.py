@@ -31,7 +31,8 @@ def billing_summary(request):
                 date__gte=start).filter(date__lte=end).filter(status__exact='C')
             total = 0
             for reservation in unpaid_reservations:
-                period = datetime.combine(reservation.date, reservation.end_time) - datetime.combine(reservation.date, reservation.start_time)
+                period = datetime.combine(reservation.date, reservation.end_time) \
+                         - datetime.combine(reservation.date, reservation.start_time)
                 total += Decimal(period.total_seconds() / 60) * reservation.reservation_service.rate
             data["customer_id"] = customer.id
             data["customer_name"] = customer.full_name()
@@ -89,33 +90,6 @@ def allocation_summary(request):
         data['ret'] = 1
         data['message'] = str(e)
     return JsonResponse(data)
-
-
-def cal_allocation(start, end, occupied_list):
-    allocation_list = []
-    d = start
-    c = 0
-    while d <= end:
-        start_of_day = datetime.combine(d, time(8, 0))
-        end_of_day = datetime.combine(d, time(20, 0))
-        if len(occupied_list) <= c or d != occupied_list[c].date:
-            allocation_list.append({'start': start_of_day, 'end': end_of_day})
-        else:
-            current_time = start_of_day
-            while current_time < end_of_day:
-                if len(occupied_list) == c and current_time < end_of_day:
-                    allocation_list.append({'start': current_time, 'end': end_of_day})
-                    current_time = end_of_day
-                else:
-                    if len(occupied_list) > c and current_time < \
-                            datetime.combine(occupied_list[c].date, occupied_list[c].start_time):
-                        allocation_list.append({'start': current_time,
-                                                'end': datetime.combine(occupied_list[c].date,
-                                                                        occupied_list[c].start_time)})
-                    current_time = datetime.combine(occupied_list[c].date, occupied_list[c].end_time)
-                    c += 1
-        d = d + timedelta(days=1)
-    return allocation_list
 
 
 def allocation_array(start, end, occupied_list):

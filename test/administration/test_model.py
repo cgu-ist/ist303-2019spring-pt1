@@ -32,6 +32,7 @@ def test_service_create():
     service = Service.objects.create(name='Mineral baths', description='Mineral baths', min_service_time=15,
                                      max_service_time=60, rate=2.50, limit=65535)
     assert service is not None
+    service.delete()
 
 
 @pytest.mark.django_db
