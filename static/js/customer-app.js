@@ -67,7 +67,7 @@ function checkInCustomer(el){
             if (data.ret == 0) {
                 let customer = data.customer;
                 $('#model-message').empty();
-                $('#model-message').append(`Your check-in number is ${customer.check_in_number}`);
+                $('#model-message').append(`Dear ${customer.first_name} ${customer.last_name}, you're checked-in, your check-in number is ${customer.check_in_number}`);
                 $('#checkinModel').modal({
                     show: true
                 })

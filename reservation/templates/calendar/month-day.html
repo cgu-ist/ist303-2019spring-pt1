@@ -4,12 +4,18 @@
 		<div class="events-list" data-cal-start="<%= start %>" data-cal-end="<%= end %>">
 			<% _.each(events, function(event) {
                 let event_time = new Date();
+                let event_end_time = new Date();
                 event_time.setTime(event.start);
+                event_end_time.setTime(event.end);
+                let title = event_time.getHours() + ':' + ('0' + event_time.getMinutes()).slice(-2);
+                title += '-' + event_end_time.getHours() + ':' + ('0' + event_end_time.getMinutes()).slice(-2);
+                title += "\n" + event.person;
+                title += "\n" + event.title;
             %>
 				<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
                     data-event-class="<%= event.title.toLowerCase().split(' ').join('-') %>"
 					class="pull-left event-<%= event.title.toLowerCase().split(' ').join('-') %>" data-toggle="tooltip"
-					title="<%=  event_time.getHours() + ':' + ('0' + event_time.getMinutes()).slice(-2) + ' ' + event.person + ' - ' + event.title %>"></a>
+					title="<%= title %>"></a>
 			<% }); %>
 		</div>
 	<% } %>
