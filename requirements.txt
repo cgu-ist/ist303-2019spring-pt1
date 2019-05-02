@@ -13,3 +13,5 @@ pytest==4.2.0
 pytest-django==3.4.8
 pytest-cov==2.6.1
 django-debug-toolbar==1.11
+tzlocal==1.5.1
+uwsgi==2.0.18
