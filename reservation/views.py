@@ -150,8 +150,8 @@ def dump_json(reservation_obj):
                 'first_name': customer.first_name,
                 'last_name': customer.last_name
             },
-            'datetime_start_ms': start_datetime.strftime('%s') + '000',
-            'datetime_end_ms': end_datetime.strftime('%s') + '000',
+            'datetime_start_ms': str(int(start_datetime.timestamp())) + '000',
+            'datetime_end_ms': str(int(end_datetime.timestamp())) + '000',
             'date': reservation_obj.date,
             'start_time': reservation_obj.start_time,
             'period': period,
