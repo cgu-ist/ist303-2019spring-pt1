@@ -4,6 +4,7 @@ from .models import (Service, Customer)
 from django.http import JsonResponse
 from django.core.exceptions import ValidationError
 from datetime import datetime
+import random
 
 
 # Create your views here.
@@ -191,7 +192,8 @@ def customer_check_in(request, customer_id):
                 'last_name': customer.last_name,
                 'gender': customer.gender,
                 'email': customer.email,
-                'tel': customer.tel
+                'tel': customer.tel,
+                'check_in_number': random.randint(1000000, 9999999)
             }
         return JsonResponse(data)
     except ValidationError as e:

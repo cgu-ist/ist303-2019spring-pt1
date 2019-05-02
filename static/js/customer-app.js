@@ -64,7 +64,16 @@ function checkInCustomer(el){
         type:  'post',
         dataType:  'json',
         success:  function (data) {
-            console.log("Checked In")
+            if (data.ret == 0) {
+                let customer = data.customer;
+                $('#model-message').empty();
+                $('#model-message').append(`Your check-in number is ${customer.check_in_number}`);
+                $('#checkinModel').modal({
+                    show: true
+                })
+            } else {
+
+            }
         }
     });
 }
