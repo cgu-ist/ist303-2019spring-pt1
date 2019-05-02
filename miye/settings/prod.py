@@ -9,3 +9,5 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, '../miye.sqlite3'),
     }
 }
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
