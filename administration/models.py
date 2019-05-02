@@ -46,7 +46,7 @@ class Customer(models.Model):
     active = BooleanField(default=True)
     tel = CharField(max_length=13, default=True)
     email = EmailField(null=True)
-    check_in_time = DateTimeField(null=True)
+    check_in_time = DateTimeField(null=True, blank=True)
     create_time = DateTimeField(auto_now_add=True)
     update_time = DateTimeField(auto_now=True)
 

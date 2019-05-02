@@ -124,6 +124,7 @@ function ajaxNewCustomer(customer) {
                                 <td class="col-3">
                                     <button class="btn deleteBtn btn-primary" data-id="${customer.id}">Delete</button>
                                     <button class="btn updateBtn btn-primary" data-id="${customer.id}">Update</button>
+                                    <button class="btn checkInBtn btn-primary" data-id="${customer.id}">Check-In</button>
                                 </td>
                             </tr>`;
                 $('#myTable tbody').append(row);
@@ -210,6 +211,7 @@ function ajaxUpdateCustomer(customer, elm) {
                     <td class="col-3">
                         <button class="btn deleteBtn btn-primary" data-id="${customer.id}">Delete</button>
                         <button class="btn updateBtn btn-primary" data-id="${customer.id}">Update</button>
+                        <button class="btn checkInBtn btn-primary" data-id="${customer.id}">Check-In</button>
                      </td>
                     </tr>`;
                 updatedRowElement.replaceWith(row);
