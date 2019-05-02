@@ -19,6 +19,12 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 * [Okechukwu Ugwuanyi](https://github.com/okechukwuugwuanyi) - UI Design, Programmer
 * [Haibo Yan](https://github.com/billyean) - System Design, Programmer
 
+## Public web for testing
+
+[http://ec2-18-223-122-28.us-east-2.compute.amazonaws.com:8000](http://ec2-18-223-122-28.us-east-2.compute.amazonaws.com:8000)
+
+Please contact [haibo.yan@cgu.edu](mailto:haibo.yan@cgu.edu) to get initial user/password.
+
 ## Design
 
 #### Logic Design
@@ -38,6 +44,8 @@ MiYE provides a reservation page where the clerk can manage customer reservation
 MiYE has the page to let customer to check the money they own and the reservations they made also the cancelled reservation.
 
 MiYE also allow customer to look for the allocation before certain date that he can make an reservation.
+
+MiYE has personal availibities page that allows customer checks all possible available service by given date.
 
 ### Architecture
 
@@ -148,6 +156,7 @@ $ docker run -p 8000:8000 -i -t miye_image
 
 ### Milestone 2
 * [X] Permission control on staff/superuser
-* [X] Allocation - COR
+* [X] Personal Availabilities - COR
 * [X] 15 minutes on reservation time - COR
+* [X] Test setup
 
