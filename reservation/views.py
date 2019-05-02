@@ -90,9 +90,8 @@ def new_reservation(request):
             customer = Customer.objects.get(id=request.POST['customer_id'])
             reservation_service = Service.objects.get(id=request.POST['service_id'])
             reservation_length = int(request.POST['reservation_length'])
-            start_datetime = datetime.strptime(request.POST['reservation_date'] + ' '
-                                                        + request.POST['reservation_time']
-                                                        , '%Y-%m-%d %H:%M')
+            start_datetime = datetime.strptime(request.POST['reservation_date'] + ' ' + request.POST['reservation_time']
+                                               , '%Y-%m-%d %H:%M')
             end_datetime = start_datetime + timedelta(minutes=reservation_length)
 
             date = start_datetime.date()

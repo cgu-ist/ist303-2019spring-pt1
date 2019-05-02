@@ -61,11 +61,11 @@ def allocation_summary(request):
         if request.method == 'POST':
             customer = Customer.objects.get(id=int(request.POST['customer_id']))
             services = Service.objects.all()
-            today = datetime.today().date()
+            today = (datetime.today() + timedelta(hours=-7)).date()
             end_date = datetime.strptime(request.POST['end'], '%Y-%m-%d').date()
 
             occupied = Reservation.objects.order_by('reservation_service', 'date', 'start_time')\
-                .filter(date__gte=today).filter(date__lte=end_date)\
+                .filter(status__exact='N').filter(date__gte=today).filter(date__lte=end_date)\
                 .filter(Q(customer_id__exact=customer.id, reservation_service__name__exact='Mineral baths')
                         | ~Q(reservation_service__name__exact='Mineral baths'))
 
