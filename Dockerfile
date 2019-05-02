@@ -1,4 +1,4 @@
-# base image
+# base img
 FROM python:3.7
 
 MAINTAINER Haibo Yan
