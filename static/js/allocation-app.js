@@ -31,16 +31,16 @@ function get_allocations() {
             if (data.ret == 0) {
                 $('#allocationDiv').empty();
                 let summary = `<div class="row resultdiv">
-                                    <div class="col-sm-12" style="padding: 10px 160px 2px 160px;">
-                                        <div class="col-sm-2"> Not available : </div>
+                                    <div class="col-sm-8" style="padding: 10px 20px 2px 20px;">
+                                        <div class="col-sm-2">Not available:</div>
                                         <div class="col-sm-1"> 
                                             <div class="unavailable-block"/>
                                         </div>
-                                        <div class="col-sm-2"> Available : </div>
+                                        <div class="col-sm-2">Available:</div>
                                         <div class="col-sm-1"> 
                                             <div class="available-block"/>
                                         </div>
-                                        <div class="col-sm-2"> Past : </div>
+                                        <div class="col-sm-2">Past:</div>
                                         <div class="col-sm-1"> 
                                             <div class="past-block"/>
                                         </div>
