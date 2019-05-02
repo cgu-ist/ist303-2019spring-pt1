@@ -18,17 +18,38 @@
 {% block title %} Who are we {% endblock %}
 
 {% block main %}
-            <div class="col-sm-8">
-                <p>MiYE(Mud in Your Eye) - a new, small hot spring health spa, located in a remote, scenic part of the US. The software must support the spa’s front desk clerks in managing service reservations and statements of service usage for customers.</p>
+            <div class="row">
+                <div class="col-sm-8">
+                    <p>MiYE(Mud in Your Eye) - a new, small hot spring health spa, located in a remote, scenic part of the US. The software must support the spa’s front desk clerks in managing service reservations and statements of service usage for customers.</p>
+                </div>
+                <div class="col-sm-4">
+                    <img src="{% static 'img/massage-small.jpg' %}" style="width: 100%; height: auto;  border-radius:10px;">
+                </div>
             </div>
-            <div class="col-sm-4">
-                <img src="{% static 'img/massage-small.jpg' %}" style="width: 100%; height: auto;">
+
+            <div class="row">
+                <div class="col-sm-2" style="padding: 20px 2px 20px 2px;">
+                    <img src="{% static 'img/massage.jpg' %}" style="width: 100%; height: 200px; border-radius:10px;">
+                </div>
+                <div class="col-sm-10" style="padding: 20px 2px 20px 20px;">
+                    <span style="font-size: 2em; font-weight: bold">Mineral bath</span> are spa resorts developed around naturally occurring mineral springs. Like seaside resorts, they are mainly used recreationally although they also figured prominently in prescientific medicine.
+                </div>
             </div>
-            <div style="padding: 10px 4px 10px 2px;">
-                <span style="font-size: 2em; font-weight: bold">Mineral bath</span> are spa resorts developed around naturally occurring mineral springs. Like seaside resorts, they are mainly used recreationally although they also figured prominently in prescientific medicine.
+            <div class="row">
+                <div class="col-sm-2" style="padding: 20px 2px 20px 2px;">
+                    <img src="{% static 'img/facial-massage.jpg' %}" style="width: 100%; height: 200px;  border-radius:10px;">
+                </div>
+                <div class="col-sm-10" style="padding: 20px 2px 20px 20px;">
+                    <span style="font-size: 2em; font-weight: bold">Facial massage</span> is a very popular Western beauty treatment to slow down the aging process and achieve younger looking and healthier skin. It is also used to relieve stress, migraine headache, premenstrual syndrome (PMS) and sinus congestion. It may involve a whole massage session, a portion of a whole-body massage or a part of a facial treatment.
+                </div>
             </div>
-            <div>
-                <img src="{% static 'img/massage.jpg' %}" style="width: 100%; height: auto;">
+            <div class="row">
+            <div class="col-sm-2" style="padding: 20px 2px 20px 2px;">
+                    <img src="{% static 'img/hot-stone-massage.png' %}" style="width: 100%; height: 200px;  border-radius:10px;">
+                </div>
+                <div class="col-sm-10" style="padding: 20px 2px 20px 20px;">
+                    <span style="font-size: 2em; font-weight: bold">Hot stone massage </span> is a type of massage therapy that involves the use of smooth, heated stones. The massage therapist places the hot stones on specific points on your body and may also hold the stones while giving the massage. The localized heat and weight of the stones warm and relax muscles, allowing the massage therapist to apply deeper pressure to those areas without causing discomfort.
+                </div>
             </div>
 {% endblock %}
 
